@@ -16,6 +16,8 @@
 		7724A8831CEAA5D400722F0B /* FriendsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7724A8821CEAA5D400722F0B /* FriendsTests.swift */; };
 		7724A88E1CEAA5D400722F0B /* FriendsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7724A88D1CEAA5D400722F0B /* FriendsUITests.swift */; };
 		7724A89C1CEAA6A100722F0B /* ContactTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7724A89B1CEAA6A100722F0B /* ContactTests.swift */; };
+		7724A89E1CEAA7F800722F0B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7724A89D1CEAA7F800722F0B /* Contact.swift */; };
+		7724A8A01CEAA85000722F0B /* SocialMediaAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7724A89F1CEAA85000722F0B /* SocialMediaAccount.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		7724A88D1CEAA5D400722F0B /* FriendsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsUITests.swift; sourceTree = "<group>"; };
 		7724A88F1CEAA5D400722F0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7724A89B1CEAA6A100722F0B /* ContactTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTests.swift; sourceTree = "<group>"; };
+		7724A89D1CEAA7F800722F0B /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		7724A89F1CEAA85000722F0B /* SocialMediaAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialMediaAccount.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,8 @@
 				7724A8741CEAA5D400722F0B /* Assets.xcassets */,
 				7724A8761CEAA5D400722F0B /* LaunchScreen.storyboard */,
 				7724A8791CEAA5D400722F0B /* Info.plist */,
+				7724A89D1CEAA7F800722F0B /* Contact.swift */,
+				7724A89F1CEAA85000722F0B /* SocialMediaAccount.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -262,9 +268,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7724A89E1CEAA7F800722F0B /* Contact.swift in Sources */,
 				7724A8701CEAA5D400722F0B /* DetailViewController.swift in Sources */,
 				7724A86E1CEAA5D400722F0B /* MasterViewController.swift in Sources */,
 				7724A86C1CEAA5D400722F0B /* AppDelegate.swift in Sources */,
+				7724A8A01CEAA85000722F0B /* SocialMediaAccount.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
