@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import Friends
 
 class ContactTests: XCTestCase {
     
@@ -33,5 +34,20 @@ class ContactTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+    // MARK: - Contact Class Tests
+    
+    // Test Contact firstName property
+    
+    func testFirstName() {
+        let firstNameToTest = "Carlos"
+        let contact = Contact(firstName: firstNameToTest, lastName: "Poles", address: "Brazil")
+        XCTAssertNotNil(firstNameToTest)
+        XCTAssertEqual(contact.firstName, firstNameToTest)
+        
+    }
+    
+    
+    
     
 }
