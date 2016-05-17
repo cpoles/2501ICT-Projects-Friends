@@ -11,8 +11,6 @@ import XCTest
 
 class ContactTests: XCTestCase {
     
-    
-    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -152,26 +150,40 @@ class ContactTests: XCTestCase {
             }
         }
         
+    }
+    
+    // MARK: - Persistence Tests
+    
+    /**
+     This function tests whether or not a given array of Contact objects can be converted to
+     a JSONObject.
+     
+     */
+    
+    func testConvertToPropertyList() {
+        var contactList = [Contact]()
+        let contact1 = Contact(firstName: "Carlos", lastName: "Poles", address: "Brazil")
+        contact1.imageURL = "https://upload.wikimedia.org/wikipedia/en/e/e9/Bond_University_logo.jpg"
+        let contact2 = Contact(firstName: "Carlos", lastName: "Antonio", address: "Argentina")
+        contact2.imageURL = "https://upload.wikimedia.org/wikipedia/en/e/e9/Bond_University_logo.jpg"
+        let contact3 = Contact(firstName: "Luis", lastName: "Miguel", address: "Uruguay")
+        contact3.imageURL = "https://upload.wikimedia.org/wikipedia/en/e/e9/Bond_University_logo.jpg"
+            
+        contactList.append(contact1)
+        contactList.append(contact2)
+        contactList.append(contact3)
         
+        // convert Array of Contacts into NSDictionary Format
+        
+        let contactListAsDic = contactList.map { $0.propertyListRepresentation() }
+        
+        XCTAssertTrue(NSJSONSerialization.isValidJSONObject(contactListAsDic))
         
     }
     
     
     
-    // MARK: - Persistence Tests
-    
-    /**
-     This function tests whether or not a given array of Photo objects can be converted to
-     a JSONObject.
-     
-     */
-    
-//    var contactList = [Contact]()
-//    let contact1 = Contact(firstName: "Carlos", lastName: "Poles", address: "Brazil")
-//    contact1.imageURL = "https://upload.wikimedia.org/wikipedia/en/e/e9/Bond_University_logo.jpg"
-//    let contact2 = Contact(firstName: ", lastName: <#T##String#>, address: <#T##String#>)
-//        
-//        contactList.append(contact1)
+
 }
 
 
