@@ -1,17 +1,17 @@
 //
-//  FriendsTests.swift
-//  FriendsTests
+//  ContactTests.swift
+//  Friends
 //
 //  Created by Carlos Poles on 17/05/2016.
 //  Copyright © 2016 Carlos Poles. All rights reserved.
 //
 
 import XCTest
-@testable import Friends
 
-class FriendsTests: XCTestCase {
+class ContactTests: XCTestCase {
     
-        
+    
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
