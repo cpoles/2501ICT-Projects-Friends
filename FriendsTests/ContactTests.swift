@@ -181,7 +181,51 @@ class ContactTests: XCTestCase {
         
     }
     
+    /**
+     
+     This function tests the save data functionality.
+     The data is saved into a JSON file.
+     
+     */
     
+    func testWriteToJSONFile() {
+        
+        var contactList = [Contact]()
+        let contact1 = Contact(firstName: "Carlos", lastName: "Poles", address: "Brazil")
+        contact1.imageURL = "https://upload.wikimedia.org/wikipedia/en/e/e9/Bond_University_logo.jpg"
+        let contact2 = Contact(firstName: "Carlos", lastName: "Antonio", address: "Argentina")
+        contact2.imageURL = "https://upload.wikimedia.org/wikipedia/en/e/e9/Bond_University_logo.jpg"
+        let contact3 = Contact(firstName: "Luis", lastName: "Miguel", address: "Uruguay")
+        contact3.imageURL = "https://upload.wikimedia.org/wikipedia/en/e/e9/Bond_University_logo.jpg"
+        
+        contactList.append(contact1)
+        contactList.append(contact2)
+        contactList.append(contact3)
+        
+        // create path from Directory for the class for the converted class into a property list to be saved.
+        
+        let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as NSString
+        
+        // convert ContactList into NSDictionary format
+        
+        let contactListAsDic = contactList.map { $0.propertyListRepresentation() }
+        
+        // create NSData Object to write data to file
+        
+        let data: NSData
+        
+        try! data = NSJSONSerialization.dataWithJSONObject(contactListAsDic, options: .PrettyPrinted)
+        
+        // create jSON file
+        
+        let jsonFile = path.stringByAppendingPathComponent("friendTest.json")
+        
+        // write data to file
+        
+        XCTAssertTrue(data.writeToFile(jsonFile, atomically: true))
+        
+        
+    }
     
 
 }
