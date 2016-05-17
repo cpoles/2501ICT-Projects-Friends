@@ -92,5 +92,9 @@ class ContactTests: XCTestCase {
 
     }
     
+    func testSettersAndGetters() {
+        
+        
+    }
     
 }
