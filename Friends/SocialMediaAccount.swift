@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SocialMediaAccount {
+class SocialMediaAccount : Equatable {
     
     
     // MARK: - Properties
@@ -37,4 +37,10 @@ class SocialMediaAccount {
         return propertyList
     }
     
+}
+
+
+func ==(lhs: SocialMediaAccount, rhs: SocialMediaAccount) -> Bool {
+    
+    return lhs.identifier == rhs.identifier && lhs.type == lhs.type
 }

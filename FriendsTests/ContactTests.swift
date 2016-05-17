@@ -92,9 +92,40 @@ class ContactTests: XCTestCase {
 
     }
     
-    func testSettersAndGetters() {
+    func testSocialMedia() {
+        let contact = Contact(firstName: "Carlos", lastName: "Poles", address: "Brazil")
+        let socialMediaToTest = [SocialMediaAccount(identifier: "email", type: .Facebook), SocialMediaAccount(identifier: "token", type: .Twitter)]
         
+        XCTAssertNotNil(socialMediaToTest)
+        
+        contact.socialMedia = socialMediaToTest
+        
+        XCTAssertEqual(contact.socialMedia, socialMediaToTest)
         
     }
     
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
