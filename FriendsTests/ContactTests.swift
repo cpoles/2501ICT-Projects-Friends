@@ -47,7 +47,50 @@ class ContactTests: XCTestCase {
         
     }
     
+    func testLastName() {
+        let lastNameToTest = "Poles"
+        let contact = Contact(firstName: "Carlos", lastName: lastNameToTest, address: "Brazil")
+        XCTAssertNotNil(lastNameToTest)
+        XCTAssertEqual(contact.lastName, lastNameToTest)
+    }
     
+    func testAddress() {
+        let addressToTest = "Brazil"
+        let contact = Contact(firstName: "Carlos", lastName: "Poles", address: addressToTest)
+        XCTAssertNotNil(addressToTest)
+        XCTAssertEqual(contact.address, addressToTest)
+    }
+    
+    func testFullName() {
+        let firstNameToTest = "Carlos"
+        let lastNameToTest = "Poles"
+        let contact = Contact(firstName: firstNameToTest, lastName: lastNameToTest, address: "Brazil")
+        XCTAssertNotNil(firstNameToTest)
+        XCTAssertNotNil(lastNameToTest)
+        let fullNameToTest = firstNameToTest + " " + lastNameToTest
+        XCTAssertEqual(contact.fullName, fullNameToTest)
+        
+    }
+    
+    func testImageURL() {
+        let contact = Contact(firstName: "Carlos", lastName: "Poles", address: "Brazil")
+        let imageURLToTest = "http://stuffpoint.com/cats/image/41633-cats-cute-cat.jpg"
+        XCTAssertNotNil(imageURLToTest)
+        contact.imageURL = imageURLToTest
+        XCTAssertEqual(contact.imageURL, imageURLToTest)
+    }
+    
+    func testImageData() {
+        let contact = Contact(firstName: "Carlos", lastName: "Poles", address: "Brazil")
+        let imageURLToTest = "http://stuffpoint.com/cats/image/41633-cats-cute-cat.jpg"
+        XCTAssertNotNil(imageURLToTest)
+        contact.imageURL = imageURLToTest
+        
+        let imageToTest = contact.image
+        XCTAssertNotNil(imageToTest)
+        XCTAssertEqual(contact.image, imageToTest)
+
+    }
     
     
 }
