@@ -37,7 +37,7 @@ class ContactTests: XCTestCase {
     
     // MARK: - Contact Class Tests
     
-    // Test Contact firstName property
+    // firstName property
     
     func testFirstName() {
         let firstNameToTest = "Carlos"
@@ -47,6 +47,8 @@ class ContactTests: XCTestCase {
         
     }
     
+    // lastName property
+    
     func testLastName() {
         let lastNameToTest = "Poles"
         let contact = Contact(firstName: "Carlos", lastName: lastNameToTest, address: "Brazil")
@@ -54,12 +56,16 @@ class ContactTests: XCTestCase {
         XCTAssertEqual(contact.lastName, lastNameToTest)
     }
     
+    // address property
+    
     func testAddress() {
         let addressToTest = "Brazil"
         let contact = Contact(firstName: "Carlos", lastName: "Poles", address: addressToTest)
         XCTAssertNotNil(addressToTest)
         XCTAssertEqual(contact.address, addressToTest)
     }
+    
+    // fullName property
     
     func testFullName() {
         let firstNameToTest = "Carlos"
@@ -72,6 +78,8 @@ class ContactTests: XCTestCase {
         
     }
     
+    // imageURL property
+    
     func testImageURL() {
         let contact = Contact(firstName: "Carlos", lastName: "Poles", address: "Brazil")
         let imageURLToTest = "http://stuffpoint.com/cats/image/41633-cats-cute-cat.jpg"
@@ -79,6 +87,8 @@ class ContactTests: XCTestCase {
         contact.imageURL = imageURLToTest
         XCTAssertEqual(contact.imageURL, imageURLToTest)
     }
+    
+    // image property
     
     func testImageData() {
         let contact = Contact(firstName: "Carlos", lastName: "Poles", address: "Brazil")
@@ -92,20 +102,76 @@ class ContactTests: XCTestCase {
 
     }
     
+    // socialMedia property
+
     func testSocialMedia() {
         let contact = Contact(firstName: "Carlos", lastName: "Poles", address: "Brazil")
         let socialMediaToTest = [SocialMediaAccount(identifier: "email", type: .Facebook), SocialMediaAccount(identifier: "token", type: .Twitter)]
         
         XCTAssertNotNil(socialMediaToTest)
-        
         contact.socialMedia = socialMediaToTest
-        
         XCTAssertEqual(contact.socialMedia, socialMediaToTest)
+        
+    }
+    
+    // MARK: - properties Setters and Getters
+    
+    func testSettersAndGetters() {
+        let firstNames = ["Carlos", "Antonio", "Marco", "Theodore"]
+        let lastNames = ["Poles", "Brown", "Wilson", "White"]
+        let addresses = ["Brazil", "Italy", "Germany", "Australia"]
+        let imageURLs = ["http://stuffpoint.com/cartoons/image/95692-cartoons-cartoon.jpg", "http://stuffpoint.com/cartoons/image/187936-cartoons-pluto.jpg", "http://stuffpoint.com/cartoons/image/174883-cartoons-cartoons.jpg", "http://stuffpoint.com/cats/image/41633-cats-cute-cat.jpg" ]
+        let socialMedias = [[SocialMediaAccount(identifier: "email", type: .Facebook), SocialMediaAccount(identifier: "token", type: .Twitter)], [SocialMediaAccount(identifier: "email", type: .Weibo)], [SocialMediaAccount(identifier: "token", type: .Flickr)], [SocialMediaAccount(identifier: "email", type: .Facebook), SocialMediaAccount(identifier: "token", type: .Twitter)] ]
+        
+        let contact = Contact(firstName: "", lastName: "", address: "")
+        
+        for firstName in firstNames {
+            contact.firstName = firstName
+            
+            for lastName in lastNames {
+                contact.lastName = lastName
+                
+                for address in addresses {
+                    contact.address = address
+                    
+                    for imageURL in imageURLs {
+                        contact.imageURL = imageURL
+                        
+                        for socialMedia in socialMedias {
+                            contact.socialMedia = socialMedia
+                            
+                            XCTAssertEqual(contact.firstName, firstName)
+                            XCTAssertEqual(contact.lastName, lastName)
+                            XCTAssertEqual(contact.address, address)
+                            XCTAssertEqual(contact.imageURL, imageURL)
+                            XCTAssertEqual(contact.socialMedia, socialMedia)
+                            
+                        }
+                    }
+                }
+            }
+        }
+        
+        
         
     }
     
     
     
+    // MARK: - Persistence Tests
+    
+    /**
+     This function tests whether or not a given array of Photo objects can be converted to
+     a JSONObject.
+     
+     */
+    
+//    var contactList = [Contact]()
+//    let contact1 = Contact(firstName: "Carlos", lastName: "Poles", address: "Brazil")
+//    contact1.imageURL = "https://upload.wikimedia.org/wikipedia/en/e/e9/Bond_University_logo.jpg"
+//    let contact2 = Contact(firstName: ", lastName: <#T##String#>, address: <#T##String#>)
+//        
+//        contactList.append(contact1)
 }
 
 
