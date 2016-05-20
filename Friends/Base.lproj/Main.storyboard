@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Master-->
@@ -84,19 +85,31 @@
                                 <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vBq-wx-r8W" id="5Dx-Ja-Tfj">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y2a-kx-L8G">
-                                            <rect key="frame" x="8" y="0.0" width="59" height="43.5"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="y2a-kx-L8G">
+                                            <rect key="frame" x="8" y="0.0" width="59" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="59" id="j3d-Rc-Maa"/>
+                                            </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wLP-L2-Ke4">
-                                            <rect key="frame" x="94" y="11" width="42" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wLP-L2-Ke4">
+                                            <rect key="frame" x="94" y="0.0" width="498" height="44"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="wLP-L2-Ke4" firstAttribute="trailing" secondItem="5Dx-Ja-Tfj" secondAttribute="trailingMargin" id="5dK-7u-Ylp"/>
+                                        <constraint firstItem="wLP-L2-Ke4" firstAttribute="bottom" secondItem="y2a-kx-L8G" secondAttribute="bottom" id="GxE-5Q-RpY"/>
+                                        <constraint firstItem="y2a-kx-L8G" firstAttribute="top" secondItem="5Dx-Ja-Tfj" secondAttribute="top" id="N6j-KR-QWz"/>
+                                        <constraint firstItem="wLP-L2-Ke4" firstAttribute="top" secondItem="y2a-kx-L8G" secondAttribute="top" id="Ql5-H7-0tR"/>
+                                        <constraint firstItem="wLP-L2-Ke4" firstAttribute="leading" secondItem="y2a-kx-L8G" secondAttribute="trailing" constant="27" id="V6O-gz-eu0"/>
+                                        <constraint firstItem="y2a-kx-L8G" firstAttribute="leading" secondItem="5Dx-Ja-Tfj" secondAttribute="leadingMargin" id="ia3-GU-IYh"/>
+                                        <constraint firstItem="y2a-kx-L8G" firstAttribute="centerY" secondItem="5Dx-Ja-Tfj" secondAttribute="centerY" id="zEp-0U-P94"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="imageContact" destination="y2a-kx-L8G" id="0iC-bm-6bI"/>

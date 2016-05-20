@@ -19,18 +19,16 @@ class MasterViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
         
-        let contact1 = Contact(firstName: "Carlos", lastName: "Poles", address: "Brazil")
-        contact1.imageURL = "https://upload.wikimedia.org/wikipedia/en/e/e9/Bond_University_logo.jpg"
-        let contact2 = Contact(firstName: "Carlos", lastName: "Antonio", address: "Argentina")
-        contact2.imageURL = "https://upload.wikimedia.org/wikipedia/en/e/e9/Bond_University_logo.jpg"
-        let contact3 = Contact(firstName: "Luis", lastName: "Miguel", address: "Uruguay")
-        contact3.imageURL = "https://upload.wikimedia.org/wikipedia/en/e/e9/Bond_University_logo.jpg"
+        let contact1 = Contact(firstName: "Lisa", lastName: "Simpson", address: "Brazil")
+        contact1.imageURL = "http://www.simpsoncrazy.com/content/pictures/lisa/LisaSimpson10.gif"
+        let contact2 = Contact(firstName: "Homer", lastName: "Simpson", address: "Argentina")
+        contact2.imageURL = "http://www.simpsoncrazy.com/content/pictures/homer/homer-doh.png"
+        let contact3 = Contact(firstName: "Bart", lastName: "Simpson", address: "Uruguay")
+        contact3.imageURL = "http://www.simpsoncrazy.com/content/pictures/bart/BartSimpson13.gif"
         
         contactList.append(contact1)
         contactList.append(contact2)
         contactList.append(contact3)
-        
-
 
     }
 
@@ -75,10 +73,11 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! MasterTableViewCell
 
-        let object = contactList[indexPath.row] as! Contact
-        cell.textLabel!.text = object.fullName
+        let contact = contactList[indexPath.row] as! Contact
+        cell.labelFullName.text = contact.fullName
+        cell.imageContact.image = UIImage(data: contact.image!)
         return cell
     }
 
