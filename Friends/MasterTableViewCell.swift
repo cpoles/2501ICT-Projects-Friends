@@ -11,8 +11,10 @@ import UIKit
 class MasterTableViewCell: UITableViewCell {
     
     
+    @IBOutlet weak var labelFullName: UILabel!
     
     
+    @IBOutlet weak var imageContact: UIImageView!
     
     
     
