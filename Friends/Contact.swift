@@ -58,7 +58,7 @@ class Contact {
 
 enum SocialMediaType {
     
-    case Twitter, Facebook, Flickr, Yammer, Weibo
+    case Twitter, Facebook, Flickr, Yammer, WebPage
     
     func returnString() -> NSString {
         switch self {
@@ -68,8 +68,8 @@ enum SocialMediaType {
             return "Facebook"
         case .Flickr:
             return "Flickr"
-        case .Weibo:
-            return "Weibo"
+        case .WebPage:
+            return "WebPage"
         case .Yammer:
             return "Yammer"
         }

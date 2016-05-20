@@ -114,6 +114,7 @@
                                 <connections>
                                     <outlet property="imageContact" destination="y2a-kx-L8G" id="0iC-bm-6bI"/>
                                     <outlet property="labelFullName" destination="wLP-L2-Ke4" id="AUn-gg-wLF"/>
+                                    <segue destination="JEX-9P-axG" kind="show" identifier="showDetail" id="rQb-RF-91T"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -152,6 +153,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mD5-1r-OIH"/>
+        <segue reference="rQb-RF-91T"/>
     </inferredMetricsTieBreakers>
 </document>

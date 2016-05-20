@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-
 class SocialMediaAccount : Equatable, PropertyListable {
     
     

@@ -30,6 +30,7 @@ class MasterViewController: UITableViewController {
         contactList.append(contact2)
         contactList.append(contact3)
 
+
     }
 
     override func viewWillAppear(animated: Bool) {
