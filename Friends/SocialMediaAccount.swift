@@ -8,7 +8,9 @@
 
 import Foundation
 
-class SocialMediaAccount : Equatable {
+
+
+class SocialMediaAccount : Equatable, PropertyListable {
     
     
     // MARK: - Properties
@@ -23,8 +25,8 @@ class SocialMediaAccount : Equatable {
         self.type = type
     }
     
-    func socialMediaAccountToPList() -> NSDictionary {
-        
+    func propertyListRepresentation() -> NSDictionary {
+              
         let typeString = self.type.returnString()
         
         let propertyList: NSDictionary = [
@@ -39,8 +41,12 @@ class SocialMediaAccount : Equatable {
     
 }
 
+func ==<T: PropertyListable>(lhs: T, rhs: T) -> Bool {
+    return lhs.propertyListRepresentation() == rhs.propertyListRepresentation()
+}
 
-func ==(lhs: SocialMediaAccount, rhs: SocialMediaAccount) -> Bool {
+
+func ==<T: SocialMediaAccount>(lhs: T, rhs: T) -> Bool {
     
     return lhs.identifier == rhs.identifier && lhs.type == lhs.type
 }

@@ -96,7 +96,7 @@ class ContactTests: XCTestCase {
         
         let imageToTest = contact.image
         XCTAssertNotNil(imageToTest)
-        XCTAssertEqual(contact.image, imageToTest)
+        XCTAssertEqual(contact.image!, imageToTest)
 
     }
     

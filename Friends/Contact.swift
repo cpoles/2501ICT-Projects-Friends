@@ -111,7 +111,7 @@ extension Contact : PropertyListable {
     
     func propertyListRepresentation() -> NSDictionary {
         
-        let socialMediaConverted = socialMedia.map { $0.socialMediaAccountToPList() }
+        let socialMediaConverted = socialMedia.map { $0.propertyListRepresentation() }
         var propertyList = NSDictionary()
         
         if let imageAddress = imageURL {
