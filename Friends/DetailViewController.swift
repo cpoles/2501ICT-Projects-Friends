@@ -19,12 +19,16 @@ class DetailViewController: UITableViewController {
     
     @IBOutlet weak var txtSocialMedia: UITextField!
     
-    @IBOutlet weak var txtWebPage: UITableViewCell!
+    @IBOutlet weak var textWebPage: UITextField!
+    
+    @IBOutlet weak var labelSocialMedia: UILabel!
+    
     
     @IBOutlet weak var textImageURL: UITextField!
     
     @IBOutlet weak var imageContactPhoto: UIImageView!
     
+    @IBOutlet weak var labelWebPage: UILabel!
 
     var detailItem: AnyObject? {
         didSet {
@@ -35,19 +39,27 @@ class DetailViewController: UITableViewController {
 
     func configureView() {
         // Update the user interface for the detail item.
+        
         if let detail = self.detailItem as! Contact? {
-            txtFirstName.text = detail.firstName
-            txtLastName.text = detail.lastName
-            txtAddress.text = detail.address
-            txtSocialMedia.text = detail.socialMedia[0].identifier
-            txtSocialMedia.text = detail.socialMedia[1].identifier
-            if let imageURL = detail.imageURL {
-                textImageURL.text = imageURL
-                imageContactPhoto.image = UIImage(data: detail.image!)
+            let contact = detail
+            
+            if let firstName = self.txtFirstName, let lastName = self.txtLastName, let address = self.txtAddress, let socialMedia = self.txtSocialMedia, let webPage = self.textWebPage, let imageURLText = self.textImageURL, let lblSocialMedia = self.labelSocialMedia
+            {
+                firstName.text = contact.firstName
+                lastName.text = contact.lastName
+                address.text = contact.address
+                socialMedia.text = contact.socialMedia[0].identifier
+                lblSocialMedia.text = contact.socialMedia[0].type.returnString() as String
+                webPage.text = contact.socialMedia[1].identifier
+                if let imageURL = contact.imageURL {
+                    imageURLText.text = imageURL
+                    imageContactPhoto.image = UIImage(data: contact.image!)
+                }
+
             }
             
-        
         }
+
     }
 
     override func viewDidLoad() {

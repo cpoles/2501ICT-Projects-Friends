@@ -98,7 +98,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flickr" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jcB-Hz-6dv">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jcB-Hz-6dv">
                                                     <rect key="frame" x="513" y="10" width="46" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="46" id="qwA-yz-Fod"/>
@@ -202,12 +202,14 @@
                     <navigationItem key="navigationItem" title="Contact Details" id="Fmd-SE-Gin"/>
                     <connections>
                         <outlet property="imageContactPhoto" destination="tPO-lg-Lto" id="Yfi-pi-URj"/>
+                        <outlet property="labelSocialMedia" destination="jcB-Hz-6dv" id="JJg-3U-F5o"/>
+                        <outlet property="labelWebPage" destination="HgY-Dm-CIK" id="9kC-lK-gZ8"/>
                         <outlet property="textImageURL" destination="9Ve-ld-z4V" id="UD7-vX-L62"/>
+                        <outlet property="textWebPage" destination="fuh-FJ-6cQ" id="QsP-9k-wt4"/>
                         <outlet property="txtAddress" destination="KHL-pQ-n8D" id="xWL-7x-4jW"/>
                         <outlet property="txtFirstName" destination="Rea-WD-vcv" id="K7Q-Be-Qxa"/>
                         <outlet property="txtLastName" destination="8CP-ns-5hw" id="DOB-jU-XrF"/>
                         <outlet property="txtSocialMedia" destination="nwa-aK-cfO" id="0FD-oQ-C3T"/>
-                        <outlet property="txtWebPage" destination="wm9-Nh-6oj" id="8CJ-O5-H8r"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w2s-Q9-1qX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -312,6 +314,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="NR5-rz-z1t"/>
+        <segue reference="i5P-zy-Qvj"/>
     </inferredMetricsTieBreakers>
 </document>

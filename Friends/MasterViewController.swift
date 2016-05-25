@@ -21,6 +21,12 @@ class MasterViewController: UITableViewController {
         
         let contact1 = Contact(firstName: "Lisa", lastName: "Simpson", address: "Brazil")
         contact1.imageURL = "http://www.simpsoncrazy.com/content/pictures/lisa/LisaSimpson10.gif"
+        let contact1Flicker = SocialMediaAccount(identifier: "hhduhd", type: .Flickr)
+        
+        let contact1WebPage = SocialMediaAccount(identifier: "webapage nothing", type: .WebPage)
+        contact1.socialMedia.append(contact1Flicker)
+        contact1.socialMedia.append(contact1WebPage)
+        
         let contact2 = Contact(firstName: "Homer", lastName: "Simpson", address: "Argentina")
         contact2.imageURL = "http://www.simpsoncrazy.com/content/pictures/homer/homer-doh.png"
         let contact3 = Contact(firstName: "Bart", lastName: "Simpson", address: "Uruguay")
