@@ -10,8 +10,21 @@ import UIKit
 
 class DetailViewController: UITableViewController {
 
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
+  
+    @IBOutlet weak var txtFirstName: UITextField!
 
+    @IBOutlet weak var txtLastName: UITextField!
+    
+    @IBOutlet weak var txtAddress: UITextField!
+    
+    @IBOutlet weak var txtSocialMedia: UITextField!
+    
+    @IBOutlet weak var txtWebPage: UITableViewCell!
+    
+    @IBOutlet weak var textImageURL: UITextField!
+    
+    @IBOutlet weak var imageContactPhoto: UIImageView!
+    
 
     var detailItem: AnyObject? {
         didSet {
@@ -23,9 +36,17 @@ class DetailViewController: UITableViewController {
     func configureView() {
         // Update the user interface for the detail item.
         if let detail = self.detailItem as! Contact? {
-            if let label = self.detailDescriptionLabel {
-                label.text = detail.fullName
+            txtFirstName.text = detail.firstName
+            txtLastName.text = detail.lastName
+            txtAddress.text = detail.address
+            txtSocialMedia.text = detail.socialMedia[0].identifier
+            txtSocialMedia.text = detail.socialMedia[1].identifier
+            if let imageURL = detail.imageURL {
+                textImageURL.text = imageURL
+                imageContactPhoto.image = UIImage(data: detail.image!)
             }
+            
+        
         }
     }
 

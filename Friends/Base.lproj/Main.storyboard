@@ -21,7 +21,7 @@
             </objects>
             <point key="canvasLocation" x="-38" y="-630"/>
         </scene>
-        <!--Detail View Controller-->
+        <!--Contact Details-->
         <scene sceneID="eyw-ET-FSc">
             <objects>
                 <tableViewController id="eEl-FE-KcG" customClass="DetailViewController" customModule="Friends" customModuleProvider="target" sceneMemberID="viewController">
@@ -199,7 +199,16 @@
                             <outlet property="delegate" destination="eEl-FE-KcG" id="qVX-CN-hA1"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Fmd-SE-Gin"/>
+                    <navigationItem key="navigationItem" title="Contact Details" id="Fmd-SE-Gin"/>
+                    <connections>
+                        <outlet property="imageContactPhoto" destination="tPO-lg-Lto" id="Yfi-pi-URj"/>
+                        <outlet property="textImageURL" destination="9Ve-ld-z4V" id="UD7-vX-L62"/>
+                        <outlet property="txtAddress" destination="KHL-pQ-n8D" id="xWL-7x-4jW"/>
+                        <outlet property="txtFirstName" destination="Rea-WD-vcv" id="K7Q-Be-Qxa"/>
+                        <outlet property="txtLastName" destination="8CP-ns-5hw" id="DOB-jU-XrF"/>
+                        <outlet property="txtSocialMedia" destination="nwa-aK-cfO" id="0FD-oQ-C3T"/>
+                        <outlet property="txtWebPage" destination="wm9-Nh-6oj" id="8CJ-O5-H8r"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w2s-Q9-1qX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -271,7 +280,7 @@
                             <outlet property="delegate" destination="7bK-jq-Zjz" id="RA6-mI-bju"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Master" id="Zdf-7t-Un8">
+                    <navigationItem key="navigationItem" title="Social" id="Zdf-7t-Un8">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ayI-xc-qIf">
                             <connections>
                                 <segue destination="eEl-FE-KcG" kind="show" identifier="addNew" id="NR5-rz-z1t"/>
