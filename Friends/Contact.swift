@@ -56,28 +56,6 @@ class Contact : NSObject {
     }
 }
 
-enum SocialMediaType {
-    
-    case Twitter, Facebook, Flickr, Yammer, WebPage
-    
-    func returnString() -> NSString {
-        switch self {
-        case .Twitter:
-            return "Twitter"
-        case .Facebook:
-            return "Facebook"
-        case .Flickr:
-            return "Flickr"
-        case .WebPage:
-            return "WebPage"
-        case .Yammer:
-            return "Yammer"
-        }
-    }
-    
-    
-}
-
 /**
  The PropertyKey Struct holds the keys that will be used on the
  Dictionary returned by propertyListRepresentation().
@@ -141,10 +119,13 @@ extension Contact : PropertyListable {
         let lastName = (propertyList.objectForKey(PropertyKey.lastNameKey) as! String)
         let address = (propertyList.objectForKey(PropertyKey.addressKey) as! String)
         let imageURL = (propertyList.objectForKey(PropertyKey.imageURLKey) as! String?)
+        let socialMedia = (propertyList.objectForKey(PropertyKey.socialMediaKey) as! [NSDictionary])
+        let socialArray = socialMedia.map { SocialMediaAccount(propertyList: $0) }
         self.init(firstName: firstName, lastName: lastName, address: address)
         if let url = imageURL {
             self.imageURL = url
         }
+        self.socialMedia = socialArray
     }
     
     

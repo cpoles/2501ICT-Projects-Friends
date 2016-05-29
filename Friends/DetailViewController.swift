@@ -92,10 +92,10 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
                 if let imageURL = textImageURL.text {
                     contact.imageURL = imageURL
                   if let socialMedia = txtSocialMedia.text {
-                    let flicker = SocialMediaAccount(identifier: socialMedia, type: .Flickr)
+                    let flicker = SocialMediaAccount(identifier: socialMedia, type: "Flickr")
                     contact.socialMedia.append(flicker)
                         if let webPage = textWebPage.text {
-                            let web = SocialMediaAccount(identifier: webPage, type: .WebPage)
+                            let web = SocialMediaAccount(identifier: webPage, type: "WebPage")
                             contact.socialMedia.append(web)
                             self.detailItem = contact
                             delegate?.destinationViewControllerControllerContentChanged(self)
@@ -108,12 +108,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func viewDidDisappear(animated: Bool) {
-        //        let nc = NSNotificationCenter.defaultCenter()
-        //        nc.removeObserver(self)
-        //        contact?.removeObserver(self, forKeyPath: "firstName")
-        //        contact?.removeObserver(self, forKeyPath: "lastName")
-        //        contact?.removeObserver(self, forKeyPath: "address")
-        //        contact?.removeObserver(self, forKeyPath: "imageURL")
+        
     }
     
     func configureView() {
@@ -128,7 +123,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
                 lastName.text = contact!.lastName
                 address.text = contact!.address
                 socialMedia.text = contact!.socialMedia[0].identifier
-                lblSocialMedia.text = contact!.socialMedia[0].type.returnString() as String
+                lblSocialMedia.text = contact!.socialMedia[0].type
                 webPage.text = contact!.socialMedia[1].identifier
                 if let imageURL = contact!.imageURL {
                     imageURLText.text = imageURL

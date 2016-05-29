@@ -14,19 +14,18 @@ class SocialMediaAccount : Equatable, PropertyListable {
     // MARK: - Properties
     
     dynamic var identifier: String
-    var type: SocialMediaType
+    var type: String
     
     // MARK: - Initialisation
     
-    init(identifier: String, type: SocialMediaType) {
+    init(identifier: String, type: String) {
         self.identifier = identifier
         self.type = type
     }
     
     func propertyListRepresentation() -> NSDictionary {
               
-        let typeString = self.type.returnString()
-        
+        let typeString = self.type
         let propertyList: NSDictionary = [
             
             "identifier" : identifier,
@@ -37,6 +36,13 @@ class SocialMediaAccount : Equatable, PropertyListable {
         return propertyList
     }
     
+    convenience init(propertyList: NSDictionary) {
+        let identifier = (propertyList.objectForKey("identifier") as! String)
+        let type = (propertyList.objectForKey("type") as! String)
+        self.init(identifier: identifier, type: type)
+        
+    }
+
 }
 
 func ==<T: PropertyListable>(lhs: T, rhs: T) -> Bool {

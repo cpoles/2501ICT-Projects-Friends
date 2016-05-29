@@ -81,6 +81,9 @@
                                                 <constraint firstItem="KHL-pQ-n8D" firstAttribute="leading" secondItem="MXg-r6-0Xy" secondAttribute="leadingMargin" id="h54-wr-vY9"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="OY8-At-bWf" kind="show" identifier="showMap" id="ITC-gS-fcx"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -215,6 +218,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w2s-Q9-1qX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="730" y="75"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="17g-1P-0cS">
+            <objects>
+                <viewController id="OY8-At-bWf" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Hwl-6Z-qhp"/>
+                        <viewControllerLayoutGuide type="bottom" id="bGE-Vb-x8c"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GPl-xG-FRP">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="TCa-b0-rSj">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TCa-b0-rSj" firstAttribute="bottom" secondItem="bGE-Vb-x8c" secondAttribute="top" id="Nmi-t3-ze3"/>
+                            <constraint firstItem="TCa-b0-rSj" firstAttribute="top" secondItem="Hwl-6Z-qhp" secondAttribute="bottom" id="UIc-iV-Kc7"/>
+                            <constraint firstItem="TCa-b0-rSj" firstAttribute="leading" secondItem="GPl-xG-FRP" secondAttribute="leading" id="cFM-lL-ATX"/>
+                            <constraint firstAttribute="trailing" secondItem="TCa-b0-rSj" secondAttribute="trailing" id="gsD-Qt-Imd"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tjM-Dd-UaP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1400" y="75"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
