@@ -22,16 +22,16 @@ protocol PropertyListable {
 }
 
 
-class Contact {
+class Contact : NSObject {
     
     // MARK: - Properties
     
-    var address: String
-    var firstName: String
-    var imageURL: String?
-    var lastName: String
+   dynamic var address: String
+   dynamic var firstName: String
+   dynamic var imageURL: String?
+   dynamic var lastName: String
     
-    var image: NSData? {
+   dynamic var image: NSData? {
         
         if let imageAddress = imageURL {
             return NSData(contentsOfURL: NSURL(string: imageAddress)!)!
@@ -40,7 +40,7 @@ class Contact {
         }
     }
     
-    var fullName: String {
+   dynamic var fullName: String {
         
         return firstName + " " + lastName
     }

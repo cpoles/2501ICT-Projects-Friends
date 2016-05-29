@@ -13,7 +13,7 @@ class SocialMediaAccount : Equatable, PropertyListable {
     
     // MARK: - Properties
     
-    var identifier: String
+    dynamic var identifier: String
     var type: SocialMediaType
     
     // MARK: - Initialisation

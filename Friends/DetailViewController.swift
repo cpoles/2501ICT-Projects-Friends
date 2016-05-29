@@ -47,7 +47,22 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    var contact: Contact?
+    
     var delegate: DetailViewControllerDelegate?
+    
+    override func viewWillAppear(animated: Bool) {
+//      let nc = NSNotificationCenter.defaultCenter()
+//        nc.addObserver(self, selector: #selector(DetailViewController.aboutToResign), name: Resign, object: nil)
+//        
+//        contact = self.detailItem as? Contact
+//        
+//        contact?.addObserver(self, forKeyPath: "firstName", options: .New, context: nil)
+//        contact?.addObserver(self, forKeyPath: "lastName", options: .New, context: nil)
+//        contact?.addObserver(self, forKeyPath: "address", options: .New, context: nil)
+//        contact?.addObserver(self, forKeyPath: "imageURL", options: .New, context: nil)
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,25 +103,36 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
                 }
             }
         }
+        
+
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        //        let nc = NSNotificationCenter.defaultCenter()
+        //        nc.removeObserver(self)
+        //        contact?.removeObserver(self, forKeyPath: "firstName")
+        //        contact?.removeObserver(self, forKeyPath: "lastName")
+        //        contact?.removeObserver(self, forKeyPath: "address")
+        //        contact?.removeObserver(self, forKeyPath: "imageURL")
     }
     
     func configureView() {
         // Update the user interface for the detail item.
         
         if let detail = self.detailItem as! Contact? {
-            let contact = detail
+            contact = detail
             
             if let firstName = self.txtFirstName, let lastName = self.txtLastName, let address = self.txtAddress, let socialMedia = self.txtSocialMedia, let webPage = self.textWebPage, let imageURLText = self.textImageURL, let lblSocialMedia = self.labelSocialMedia
             {
-                firstName.text = contact.firstName
-                lastName.text = contact.lastName
-                address.text = contact.address
-                socialMedia.text = contact.socialMedia[0].identifier
-                lblSocialMedia.text = contact.socialMedia[0].type.returnString() as String
-                webPage.text = contact.socialMedia[1].identifier
-                if let imageURL = contact.imageURL {
+                firstName.text = contact!.firstName
+                lastName.text = contact!.lastName
+                address.text = contact!.address
+                socialMedia.text = contact!.socialMedia[0].identifier
+                lblSocialMedia.text = contact!.socialMedia[0].type.returnString() as String
+                webPage.text = contact!.socialMedia[1].identifier
+                if let imageURL = contact!.imageURL {
                     imageURLText.text = imageURL
-                    imageContactPhoto.image = UIImage(data: contact.image!)
+                    imageContactPhoto.image = UIImage(data: contact!.image!)
                 }
                 
             }
@@ -128,7 +154,66 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
         txtFirstName.resignFirstResponder()
         return true
     }
-
+    
+    
+    // MARK: - Methods
+    
+//    func aboutToResign() {
+//        print("About to Resign")
+//    }
+//    
+//    func firstNameChanged() {
+//        print("First Name has been changed to \(contact?.firstName)")
+//    }
+//    
+//    func lastNameChanged() {
+//        print("Last Name has been changed to \(contact?.lastName)")
+//    }
+//    
+//    func imageURLChanged() {
+//        print("Image URL has been changed to \(contact?.imageURL)")
+//    }
+//    
+//    func addressChanged() {
+//        print("Address has been changed to \(contact?.address)")
+//    }
+   
+    
+    
+    
+     // MARK: - KVO
+    
+//    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+//        
+//        guard keyPath == "firstName" else {
+//            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+//            return
+//        }
+//        print(change!)
+//        firstNameChanged()
+//        
+//        guard keyPath == "lastName" else {
+//            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+//            return
+//        }
+//        print(change!)
+//        lastNameChanged()
+//        
+//        guard keyPath == "address" else {
+//            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+//            return
+//        }
+//        print(change!)
+//        addressChanged()
+//        
+//        guard keyPath == "imageURL" else {
+//            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+//            return
+//        }
+//        print(change!)
+//        imageURLChanged()
+//        
+//    }
 
 }
 
