@@ -48,7 +48,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
     }
     
     var delegate: DetailViewControllerDelegate?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -66,6 +66,30 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        
+        if let firstName = txtFirstName.text,let lastName = txtLastName.text,let address = textImageURL.text
+        
+            {
+                let contact = Contact(firstName: firstName, lastName: lastName, address: address)
+                if let imageURL = textImageURL.text {
+                    contact.imageURL = imageURL
+                  if let socialMedia = txtSocialMedia.text {
+                    let flicker = SocialMediaAccount(identifier: socialMedia, type: .Flickr)
+                    contact.socialMedia.append(flicker)
+                        if let webPage = textWebPage.text {
+                            let web = SocialMediaAccount(identifier: webPage, type: .WebPage)
+                            contact.socialMedia.append(web)
+                            delegate?.destinationViewControllerControllerContentChanged(self)
+                            
+                    }
+                
+                }
+            }
+        }
+        
     }
     
     func configureView() {

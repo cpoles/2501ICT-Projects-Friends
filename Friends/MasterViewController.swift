@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MasterViewController: UITableViewController {
+class MasterViewController: UITableViewController, DetailViewControllerDelegate {
 
     var detailViewController: DetailViewController? = nil
     var contactList: [AnyObject] = [Contact]()
@@ -50,36 +50,7 @@ class MasterViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func insertNewObject(sender: AnyObject) {
-        contactList.insert(NSDate(), atIndex: 0)
-        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-    }
-
-    // MARK: - Segues
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showDetail" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                let contact = contactList[indexPath.row] as! Contact
-                let controller = segue.destinationViewController as!  DetailViewController
-                controller.detailItem = contact
-                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-                controller.navigationItem.leftItemsSupplementBackButton = true
-            }
-        } else if segue.identifier == "addNew" {
-            let contact = Contact(firstName: "", lastName: "", address: "")
-            let socialMedia1 = SocialMediaAccount(identifier: "", type: .Flickr)
-            let socialMedia2 = SocialMediaAccount(identifier: "", type: .WebPage)
-            contact.socialMedia.append(socialMedia1)
-            contact.socialMedia.append(socialMedia2)
-            let controller = segue.destinationViewController as! DetailViewController
-            controller.detailItem = contact
-            // controller.delegate =
-            print("Add new contact")
-        }
-    }
-
+   
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -113,6 +84,48 @@ class MasterViewController: UITableViewController {
         }
     }
 
-
+    // MARK: - Segues
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showDetail" {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                let contact = contactList[indexPath.row] as! Contact
+                let controller = segue.destinationViewController as!  DetailViewController
+                controller.detailItem = contact
+                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+                controller.navigationItem.leftItemsSupplementBackButton = true
+            }
+        } else if segue.identifier == "addNew" {
+            let contact = Contact(firstName: "", lastName: "", address: "")
+            let socialMedia1 = SocialMediaAccount(identifier: "", type: .Flickr)
+            let socialMedia2 = SocialMediaAccount(identifier: "", type: .WebPage)
+            contact.socialMedia.append(socialMedia1)
+            contact.socialMedia.append(socialMedia2)
+            let controller = segue.destinationViewController as! DetailViewController
+            controller.detailItem = contact
+            // controller.delegate =
+            print("Add new contact")
+        }
+    }
+    
+    // MARK: - Data Persistence
+    
+    
+    
+    
+    
+    
+    
+    // MARK - Delegation
+    // MARK - DetailViewControllerDelegate
+    
+    func destinationViewControllerControllerContentChanged(dvc: DetailViewController) {
+        
+        
+        
+        
+        
+    }
+    
 }
 
