@@ -19,6 +19,7 @@
 		7724A89C1CEAA6A100722F0B /* ContactTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7724A89B1CEAA6A100722F0B /* ContactTests.swift */; };
 		7724A89E1CEAA7F800722F0B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7724A89D1CEAA7F800722F0B /* Contact.swift */; };
 		7724A8A01CEAA85000722F0B /* SocialMediaAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7724A89F1CEAA85000722F0B /* SocialMediaAccount.swift */; };
+		77BDD1171CFAD122002FC682 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77BDD1161CFAD122002FC682 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		7724A89B1CEAA6A100722F0B /* ContactTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTests.swift; sourceTree = "<group>"; };
 		7724A89D1CEAA7F800722F0B /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		7724A89F1CEAA85000722F0B /* SocialMediaAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialMediaAccount.swift; sourceTree = "<group>"; };
+		77BDD1161CFAD122002FC682 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77BDD1171CFAD122002FC682 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +90,7 @@
 		7724A85F1CEAA5D400722F0B = {
 			isa = PBXGroup;
 			children = (
+				77BDD1161CFAD122002FC682 /* MapKit.framework */,
 				7724A86A1CEAA5D400722F0B /* Friends */,
 				7724A8811CEAA5D400722F0B /* FriendsTests */,
 				7724A88C1CEAA5D400722F0B /* FriendsUITests */,
@@ -208,6 +212,11 @@
 				TargetAttributes = {
 					7724A8671CEAA5D400722F0B = {
 						CreatedOnToolsVersion = 7.3.1;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					7724A87D1CEAA5D400722F0B = {
 						CreatedOnToolsVersion = 7.3.1;
