@@ -46,10 +46,20 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
             self.configureView()
         }
     }
+    
+    var delegate: DetailViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        textImageURL.delegate = self
+        textWebPage.delegate = self
+        txtFirstName.delegate = self
+        txtLastName.delegate = self
+        txtAddress.delegate = self
+        txtSocialMedia.delegate = self 
+        
         self.configureView()
     }
 

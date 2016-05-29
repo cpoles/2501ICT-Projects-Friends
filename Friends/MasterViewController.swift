@@ -67,6 +67,16 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
+        } else if segue.identifier == "addNew" {
+            let contact = Contact(firstName: "", lastName: "", address: "")
+            let socialMedia1 = SocialMediaAccount(identifier: "", type: .Flickr)
+            let socialMedia2 = SocialMediaAccount(identifier: "", type: .WebPage)
+            contact.socialMedia.append(socialMedia1)
+            contact.socialMedia.append(socialMedia2)
+            let controller = segue.destinationViewController as! DetailViewController
+            controller.detailItem = contact
+            // controller.delegate =
+            print("Add new contact")
         }
     }
 
