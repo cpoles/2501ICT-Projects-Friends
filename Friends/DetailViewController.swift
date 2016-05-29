@@ -8,9 +8,19 @@
 
 import UIKit
 
-class DetailViewController: UITableViewController {
 
-  
+/**
+ This protocol allows for the delegate to update and edit the details of the contact
+ */
+
+protocol DetailViewControllerDelegate {
+    func destinationViewControllerControllerContentChanged(dvc: DetailViewController)
+}
+
+class DetailViewController: UITableViewController, UITextFieldDelegate {
+
+    // MARK: Properties
+    
     @IBOutlet weak var txtFirstName: UITextField!
 
     @IBOutlet weak var txtLastName: UITextField!
@@ -37,6 +47,17 @@ class DetailViewController: UITableViewController {
         }
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        self.configureView()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     func configureView() {
         // Update the user interface for the detail item.
         
@@ -55,22 +76,25 @@ class DetailViewController: UITableViewController {
                     imageURLText.text = imageURL
                     imageContactPhoto.image = UIImage(data: contact.image!)
                 }
-
+                
             }
             
         }
-
+        
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        self.configureView()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        // Hide the keyboard.
+        
+        textWebPage.resignFirstResponder()
+        textImageURL.resignFirstResponder()
+        txtSocialMedia.resignFirstResponder()
+        txtAddress.resignFirstResponder()
+        txtLastName.resignFirstResponder()
+        txtFirstName.resignFirstResponder()
+        return true
     }
 
 
