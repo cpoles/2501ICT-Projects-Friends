@@ -107,9 +107,14 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
 
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showMap" {
+            let controller = segue.destinationViewController as! MapViewController
+            controller.locationString = txtAddress.text
+        }
     }
+    
+    
     
     func configureView() {
         // Update the user interface for the detail item.

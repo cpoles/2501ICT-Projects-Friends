@@ -222,7 +222,7 @@
         <!--Address-->
         <scene sceneID="17g-1P-0cS">
             <objects>
-                <viewController id="OY8-At-bWf" sceneMemberID="viewController">
+                <viewController id="OY8-At-bWf" customClass="MapViewController" customModule="Friends" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Hwl-6Z-qhp"/>
                         <viewControllerLayoutGuide type="bottom" id="bGE-Vb-x8c"/>
@@ -234,16 +234,30 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="TCa-b0-rSj">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                             </mapView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bMb-VY-0zm">
+                                <rect key="frame" x="170" y="72" width="260" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="260" id="26u-vv-Pum"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="TCa-b0-rSj" firstAttribute="bottom" secondItem="bGE-Vb-x8c" secondAttribute="top" id="Nmi-t3-ze3"/>
                             <constraint firstItem="TCa-b0-rSj" firstAttribute="top" secondItem="Hwl-6Z-qhp" secondAttribute="bottom" id="UIc-iV-Kc7"/>
                             <constraint firstItem="TCa-b0-rSj" firstAttribute="leading" secondItem="GPl-xG-FRP" secondAttribute="leading" id="cFM-lL-ATX"/>
+                            <constraint firstItem="bMb-VY-0zm" firstAttribute="centerX" secondItem="TCa-b0-rSj" secondAttribute="centerX" id="g3x-mg-qFs"/>
                             <constraint firstAttribute="trailing" secondItem="TCa-b0-rSj" secondAttribute="trailing" id="gsD-Qt-Imd"/>
+                            <constraint firstItem="bMb-VY-0zm" firstAttribute="top" secondItem="Hwl-6Z-qhp" secondAttribute="bottom" constant="8" symbolic="YES" id="maz-Td-rzL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Address" id="skQ-SV-Zrz"/>
+                    <connections>
+                        <outlet property="mapView" destination="TCa-b0-rSj" id="gtK-fN-VUF"/>
+                        <outlet property="txtAddress" destination="bMb-VY-0zm" id="W8d-pf-rYD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tjM-Dd-UaP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
