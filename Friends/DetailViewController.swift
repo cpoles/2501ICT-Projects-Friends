@@ -70,9 +70,9 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewWillDisappear(animated: Bool) {
         
-        if let firstName = txtFirstName.text,let lastName = txtLastName.text,let address = textImageURL.text
-        
-            {
+        if let firstName = txtFirstName.text,
+            let lastName = txtLastName.text,
+            let address = txtAddress.text {
                 let contact = Contact(firstName: firstName, lastName: lastName, address: address)
                 if let imageURL = textImageURL.text {
                     contact.imageURL = imageURL
@@ -82,14 +82,12 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
                         if let webPage = textWebPage.text {
                             let web = SocialMediaAccount(identifier: webPage, type: .WebPage)
                             contact.socialMedia.append(web)
+                            self.detailItem = contact
                             delegate?.destinationViewControllerControllerContentChanged(self)
-                            
                     }
-                
                 }
             }
         }
-        
     }
     
     func configureView() {

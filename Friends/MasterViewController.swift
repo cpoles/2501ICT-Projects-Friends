@@ -13,30 +13,14 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
     var detailViewController: DetailViewController? = nil
     var contactList = [Contact]()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
-        
-        let contact1 = Contact(firstName: "Lisa", lastName: "Simpson", address: "Brazil")
-        let contact1Flicker = SocialMediaAccount(identifier: "hhduhd", type: .Flickr)
-        let contact1WebPage = SocialMediaAccount(identifier: "webapage nothing", type: .WebPage)
-        
-        contact1.imageURL = "http://www.simpsoncrazy.com/content/pictures/lisa/LisaSimpson10.gif"
-        contact1.socialMedia.append(contact1Flicker)
-        contact1.socialMedia.append(contact1WebPage)
-        
-        
-        let contact2 = Contact(firstName: "Homer", lastName: "Simpson", address: "Argentina")
-        contact2.imageURL = "http://www.simpsoncrazy.com/content/pictures/homer/homer-doh.png"
-        let contact3 = Contact(firstName: "Bart", lastName: "Simpson", address: "Uruguay")
-        contact3.imageURL = "http://www.simpsoncrazy.com/content/pictures/bart/BartSimpson13.gif"
-        
-        contactList.append(contact1)
-        contactList.append(contact2)
-        contactList.append(contact3)
 
+        // Load contact list
+        
+        contactList = loadContactList()!
 
     }
 
@@ -64,7 +48,7 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! MasterTableViewCell
 
-        let contact = contactList[indexPath.row] as! Contact
+        let contact = contactList[indexPath.row]
         cell.labelFullName.text = contact.fullName
         cell.imageContact.image = UIImage(data: contact.image!)
         return cell
@@ -79,6 +63,7 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
         if editingStyle == .Delete {
             contactList.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            saveContactList()
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
@@ -89,7 +74,7 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let contact = contactList[indexPath.row] as! Contact
+                let contact = contactList[indexPath.row]
                 let controller = segue.destinationViewController as!  DetailViewController
                 controller.detailItem = contact
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
@@ -103,7 +88,7 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
             contact.socialMedia.append(socialMedia2)
             let controller = segue.destinationViewController as! DetailViewController
             controller.detailItem = contact
-            // controller.delegate =
+            controller.delegate = self
             print("Add new contact")
         }
     }
@@ -133,23 +118,70 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
         
         data.writeToFile(jsonFile, atomically: true)
         
+        print("contact list saved")
+        
+    }
+    
+    func loadContactList() -> [Contact]? {
+        
+        var loadedContactList = [Contact]()
+        
+        //build the contac list from the jsonFile
+        
+        let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as NSString
+        
+        // look for the file and save its path in a string
+        
+        let jsonFile = path.stringByAppendingPathComponent("friends.json") as String?
+        
+        if let file = jsonFile {
+            
+            // create NSData object
+            let jsonData = NSData(contentsOfFile: file)
+            
+            // create the array of dictionaries out of the jsonData NSData object
+            
+            let jsonArrayDic: [NSDictionary]
+            
+            if let data = jsonData {
+                try! jsonArrayDic = NSJSONSerialization.JSONObjectWithData(data, options: []) as! [NSDictionary]
+                
+                // create the array of contact objects parsing a trailing closure to the map function of the jsonArrayDic
+                // The closure will build a Contact object for each dictionary inside the jsonArrayDic
+                
+                let contactListLoaded = jsonArrayDic.map { Contact(propertyList: $0) }
+                loadedContactList = contactListLoaded
+
+            }
+            
+        }
+        return loadedContactList
     }
     
     // MARK: - Delegation
     
     // MARK: - DetailViewControllerDelegate
     
+    /**
+     This function handles the changes ocurred in the contents of the destinationViewController, the Detail View.
+     
+     - parameters:
+     - destinationViewController: DetailViewController
+     - returns: Void
+     
+     */
+    
     func destinationViewControllerControllerContentChanged(dvc: DetailViewController) {
         
         if let contact = dvc.detailItem {
             print("Got \(contact)")
             
+            contactList.append(contact as! Contact)
             // save the photo collection and write to the json file
             saveContactList()
             
-            dismissViewControllerAnimated(true, completion: nil)
         }
-        
+        dismissViewControllerAnimated(true, completion: nil)
         tableView.reloadData()
         
     }
