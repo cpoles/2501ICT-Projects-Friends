@@ -11,7 +11,7 @@ import UIKit
 class MasterViewController: UITableViewController, DetailViewControllerDelegate {
 
     var detailViewController: DetailViewController? = nil
-    var contactList: [AnyObject] = [Contact]()
+    var contactList = [Contact]()
 
 
     override func viewDidLoad() {
@@ -110,20 +110,47 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
     
     // MARK: - Data Persistence
     
+    func saveContactList() {
+        
+        // create path from Directory for the class for the converted class into a property list to be saved.
+        
+        let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as NSString
+        
+        // convert contact list array into property list format
+        
+        let contactListConverted = contactList.map { $0.propertyListRepresentation() }
+        
+        // created NSData object to write data to file
+        
+        let data: NSData
+        try! data = NSJSONSerialization.dataWithJSONObject(contactListConverted, options: .PrettyPrinted)
+        
+        // create the json file
+        
+        let jsonFile = path.stringByAppendingPathComponent("friends.json")
+        
+        //write data to file
+        
+        data.writeToFile(jsonFile, atomically: true)
+        
+    }
     
+    // MARK: - Delegation
     
-    
-    
-    
-    
-    // MARK - Delegation
-    // MARK - DetailViewControllerDelegate
+    // MARK: - DetailViewControllerDelegate
     
     func destinationViewControllerControllerContentChanged(dvc: DetailViewController) {
         
+        if let contact = dvc.detailItem {
+            print("Got \(contact)")
+            
+            // save the photo collection and write to the json file
+            saveContactList()
+            
+            dismissViewControllerAnimated(true, completion: nil)
+        }
         
-        
-        
+        tableView.reloadData()
         
     }
     
