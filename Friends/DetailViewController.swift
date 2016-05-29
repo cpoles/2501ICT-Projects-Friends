@@ -100,7 +100,9 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
         if segue.identifier == "showMap" {
             let controller = segue.destinationViewController as! MapViewController
             controller.locationString = txtAddress.text
-         
+        } else if segue.identifier == "showWebPage" {
+            let controller = segue.destinationViewController as! WebViewController
+            controller.webAddress = textWebPage.text
         }
     }
     

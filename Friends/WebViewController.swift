@@ -10,17 +10,30 @@ import UIKit
 
 class WebViewController: UIViewController, UITextFieldDelegate {
     
-    
     @IBOutlet weak var txtWebAddress: UITextField!
-    
+   
     @IBOutlet weak var webView: UIWebView!
     
+    var webAddress: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // set this viewController as delegate of the textfield
         txtWebAddress.delegate = self
+        txtWebAddress.text = webAddress
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        let validation = validateURLByString(txtWebAddress.text)
+        if validation {
+            let url = NSURL(string: txtWebAddress.text!)
+            let request = NSURLRequest(URL: url!)
+            
+            // load the page in the webView
+            webView.loadRequest(request)
+        }
     }
 
     override func didReceiveMemoryWarning() {

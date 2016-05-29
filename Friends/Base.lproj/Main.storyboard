@@ -278,31 +278,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ra-CW-J6U">
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4i8-00-B7y">
                                 <rect key="frame" x="0.0" y="110" width="600" height="490"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                             </webView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="enter web address" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="GT3-Th-UBH">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zWe-Pb-nmy">
                                 <rect key="frame" x="20" y="72" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="webSearch" returnKeyType="go"/>
+                                <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="1ra-CW-J6U" secondAttribute="trailing" id="Fyt-Ff-Whh"/>
-                            <constraint firstItem="GT3-Th-UBH" firstAttribute="centerX" secondItem="1ra-CW-J6U" secondAttribute="centerX" id="IMt-br-awy"/>
-                            <constraint firstItem="1ra-CW-J6U" firstAttribute="top" secondItem="3KY-bs-nOo" secondAttribute="bottom" constant="46" id="QzZ-Sw-FOC"/>
-                            <constraint firstItem="GT3-Th-UBH" firstAttribute="top" secondItem="3KY-bs-nOo" secondAttribute="bottom" constant="8" id="T3U-75-0WG"/>
-                            <constraint firstItem="1ra-CW-J6U" firstAttribute="bottom" secondItem="nWA-RB-jSV" secondAttribute="top" id="f0n-J9-PGv"/>
-                            <constraint firstItem="1ra-CW-J6U" firstAttribute="leading" secondItem="ddK-SZ-T4f" secondAttribute="leading" id="nNR-H0-U2t"/>
-                            <constraint firstItem="GT3-Th-UBH" firstAttribute="leading" secondItem="ddK-SZ-T4f" secondAttribute="leadingMargin" id="pvs-0Q-CLt"/>
+                            <constraint firstItem="zWe-Pb-nmy" firstAttribute="top" secondItem="3KY-bs-nOo" secondAttribute="bottom" constant="8" id="BJp-Jb-jgc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zWe-Pb-nmy" secondAttribute="trailing" id="FIU-SX-22m"/>
+                            <constraint firstItem="4i8-00-B7y" firstAttribute="centerX" secondItem="zWe-Pb-nmy" secondAttribute="centerX" id="PjV-P5-UMa"/>
+                            <constraint firstItem="4i8-00-B7y" firstAttribute="top" secondItem="zWe-Pb-nmy" secondAttribute="bottom" constant="8" id="lm3-mW-Eiv"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="zWe-Pb-nmy" secondAttribute="leading" id="oL4-au-fu5"/>
+                            <constraint firstItem="4i8-00-B7y" firstAttribute="leading" secondItem="ddK-SZ-T4f" secondAttribute="leading" id="tEa-IA-fh3"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="4i8-00-B7y" secondAttribute="bottom" id="vJQ-xr-Y3r"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="WebViewer" id="lcW-n7-Yzo"/>
                     <connections>
-                        <outlet property="txtWebAddress" destination="GT3-Th-UBH" id="F6Q-kf-4M2"/>
-                        <outlet property="webView" destination="1ra-CW-J6U" id="xUf-U0-xKQ"/>
+                        <outlet property="txtWebAddress" destination="zWe-Pb-nmy" id="HN7-Sl-hoE"/>
+                        <outlet property="webView" destination="4i8-00-B7y" id="nUU-Ln-bbl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gsi-2Y-Uhg" userLabel="First Responder" sceneMemberID="firstResponder"/>
