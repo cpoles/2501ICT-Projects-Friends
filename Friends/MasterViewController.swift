@@ -20,7 +20,7 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
 
         // Load contact list
         
-        contactList = loadContactList()!
+        contactList = loadContactList()
 
     }
 
@@ -78,6 +78,7 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
                 let contact = contactList[indexPath.row]
                 let controller = segue.destinationViewController as!  DetailViewController
                 controller.detailItem = contact
+                controller.delegate = self
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
@@ -87,6 +88,7 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
             let socialMedia2 = SocialMediaAccount(identifier: "", type: "WebPage")
             contact.socialMedia.append(socialMedia1)
             contact.socialMedia.append(socialMedia2)
+            contactList.append(contact)
             let controller = segue.destinationViewController as! DetailViewController
             controller.detailItem = contact
             controller.delegate = self
@@ -113,7 +115,7 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
         
         // create the json file
         
-        let jsonFile = path.stringByAppendingPathComponent("friends.json")
+        let jsonFile = path.stringByAppendingPathComponent("friends2016.json")
         
         //write data to file
         
@@ -123,7 +125,7 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
         
     }
     
-    func loadContactList() -> [Contact]? {
+    func loadContactList() -> [Contact] {
         
         var loadedContactList = [Contact]()
         
@@ -133,7 +135,7 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
         
         // look for the file and save its path in a string
         
-        let jsonFile = path.stringByAppendingPathComponent("friends.json") as String?
+        let jsonFile = path.stringByAppendingPathComponent("friends2016.json") as String?
         
         if let file = jsonFile {
             
@@ -176,14 +178,12 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
         
         if let contact = dvc.detailItem {
             print("Got \(contact)")
+            // save the friends list and write to the json file
             
-            contactList.append(contact as! Contact)
-            // save the photo collection and write to the json file
-            saveContactList()
-            
+            dismissViewControllerAnimated(true, completion: nil)
         }
-        dismissViewControllerAnimated(true, completion: nil)
-        tableView.reloadData()
+        saveContactList()
+        self.tableView.reloadData()
         
     }
     

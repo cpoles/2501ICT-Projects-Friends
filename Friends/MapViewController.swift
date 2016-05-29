@@ -23,11 +23,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFiel
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
         locationManager.delegate = self
-        
+        txtAddress.delegate = self
         txtAddress.text = locationString
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,8 +35,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFiel
     }
     
     override func viewDidAppear(animated: Bool) {
-        searchLocation()
-        
+       searchLocation()
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -48,6 +46,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFiel
     
     // MARK: - Methods
 
+    func searchLocation() {
+        let brisbane = CLLocationCoordinate2D(latitude: -27, longitude: 153)
+        
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(locationString!, inRegion: CLCircularRegion(center: brisbane, radius: 100000, identifier: "Brisbane")) { (placemarks:[CLPlacemark]?, error: NSError?) in
+            if let e = error {
+                print(e.localizedDescription)
+            }
+            guard let placemark = placemarks?.first, let location = placemark.location else {
+                print("Could not identify location '\(self.locationString)'")
+                return
+            }
+            print("Found \(location) as the first for \(self.locationString)")
+            let locationRegion = MKCoordinateRegion(center: brisbane, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
+            self.mapView.setRegion(locationRegion, animated: true)
+        }
+        
+    }
+
+    
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         let allowed: Bool
         switch status {
@@ -89,22 +107,4 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFiel
         }
     }
     
-    func searchLocation() {
-        let brisbane = CLLocationCoordinate2D(latitude: -27, longitude: 153)
-        
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(locationString!, inRegion: CLCircularRegion(center: brisbane, radius: 100000, identifier: "Brisbane")) { (placemarks:[CLPlacemark]?, error: NSError?) in
-            if let e = error {
-                print(e.localizedDescription)
-            }
-            guard let placemark = placemarks?.first, let location = placemark.location else {
-                print("Could not identify location '\(self.locationString)'")
-                return
-            }
-            print("Found \(location) as the first for \(self.locationString)")
-            let locationRegion = MKCoordinateRegion(center: brisbane, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
-            self.mapView.setRegion(locationRegion, animated: true)
-        }
-
     }
-}

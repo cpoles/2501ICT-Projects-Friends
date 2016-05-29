@@ -82,7 +82,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="OY8-At-bWf" kind="show" id="Mkw-yN-RvE"/>
+                                            <segue destination="OY8-At-bWf" kind="show" identifier="showMap" id="Mkw-yN-RvE"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>

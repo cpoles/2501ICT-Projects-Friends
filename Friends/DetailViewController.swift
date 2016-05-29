@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 
 /**
@@ -84,26 +85,14 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        
-        if let firstName = txtFirstName.text,
-            let lastName = txtLastName.text,
-            let address = txtAddress.text {
-                let contact = Contact(firstName: firstName, lastName: lastName, address: address)
-                if let imageURL = textImageURL.text {
-                    contact.imageURL = imageURL
-                  if let socialMedia = txtSocialMedia.text {
-                    let flicker = SocialMediaAccount(identifier: socialMedia, type: "Flickr")
-                    contact.socialMedia.append(flicker)
-                        if let webPage = textWebPage.text {
-                            let web = SocialMediaAccount(identifier: webPage, type: "WebPage")
-                            contact.socialMedia.append(web)
-                            self.detailItem = contact
-                            delegate?.destinationViewControllerControllerContentChanged(self)
-                    }
-                }
-            }
-        }
-        
+        contact?.firstName = txtFirstName.text!
+        contact?.lastName = txtLastName.text!
+        contact?.address = txtAddress.text!
+        contact?.socialMedia[0].identifier = txtSocialMedia.text!
+        contact?.socialMedia[1].identifier = textWebPage.text!
+        contact?.imageURL = textImageURL.text!
+        self.detailItem = contact
+        delegate?.destinationViewControllerControllerContentChanged(self)
 
     }
     
@@ -111,16 +100,14 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
         if segue.identifier == "showMap" {
             let controller = segue.destinationViewController as! MapViewController
             controller.locationString = txtAddress.text
+         
         }
     }
     
-    
-    
     func configureView() {
         // Update the user interface for the detail item.
-        
-        if let detail = self.detailItem as! Contact? {
-            contact = detail
+
+            contact = self.detailItem as! Contact?
             
             if let firstName = self.txtFirstName, let lastName = self.txtLastName, let address = self.txtAddress, let socialMedia = self.txtSocialMedia, let webPage = self.textWebPage, let imageURLText = self.textImageURL, let lblSocialMedia = self.labelSocialMedia
             {
@@ -136,8 +123,6 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
                 }
                 
             }
-            
-        }
         
     }
     
@@ -154,6 +139,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
         txtFirstName.resignFirstResponder()
         return true
     }
+
     
     
     // MARK: - Methods
