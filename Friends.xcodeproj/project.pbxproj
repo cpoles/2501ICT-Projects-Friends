@@ -20,6 +20,7 @@
 		7724A89E1CEAA7F800722F0B /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7724A89D1CEAA7F800722F0B /* Contact.swift */; };
 		7724A8A01CEAA85000722F0B /* SocialMediaAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7724A89F1CEAA85000722F0B /* SocialMediaAccount.swift */; };
 		774625101CFAF0AD00F11A56 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7746250F1CFAF0AD00F11A56 /* MapViewController.swift */; };
+		774625121CFB308E00F11A56 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774625111CFB308E00F11A56 /* WebViewController.swift */; };
 		77BDD1171CFAD122002FC682 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77BDD1161CFAD122002FC682 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		7724A89D1CEAA7F800722F0B /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		7724A89F1CEAA85000722F0B /* SocialMediaAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialMediaAccount.swift; sourceTree = "<group>"; };
 		7746250F1CFAF0AD00F11A56 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		774625111CFB308E00F11A56 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		77BDD1161CFAD122002FC682 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -117,6 +119,7 @@
 				7724A86D1CEAA5D400722F0B /* MasterViewController.swift */,
 				7724A86F1CEAA5D400722F0B /* DetailViewController.swift */,
 				7746250F1CFAF0AD00F11A56 /* MapViewController.swift */,
+				774625111CFB308E00F11A56 /* WebViewController.swift */,
 				7724A8711CEAA5D400722F0B /* Main.storyboard */,
 				7724A8741CEAA5D400722F0B /* Assets.xcassets */,
 				7724A8761CEAA5D400722F0B /* LaunchScreen.storyboard */,
@@ -290,6 +293,7 @@
 				7724A86C1CEAA5D400722F0B /* AppDelegate.swift in Sources */,
 				7724A8A01CEAA85000722F0B /* SocialMediaAccount.swift in Sources */,
 				774625101CFAF0AD00F11A56 /* MapViewController.swift in Sources */,
+				774625121CFB308E00F11A56 /* WebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
