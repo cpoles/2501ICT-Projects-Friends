@@ -8,32 +8,26 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
 
 class FlickrCollectionViewController: UICollectionViewController {
+    
+
+
+    
+    var photoCollection = [FlickrPhoto]()
 
     override func viewDidLoad() {
+        FlickrAPIKey = "dc7f9d5d95a8e7dc3209a35d0fa24e20"
         super.viewDidLoad()
         
         let user = "strictfunctor"
-        guard let photos = photosForUser(user),
-            let photo = photos.first,
-            let photoURLString = urlString(photo),
-            let url = NSURL(string: photoURLString),
-            let photoData = NSData(contentsOfURL: url),
-            let image = UIImage(data: photoData) else {
+        guard let photos = photosForUser(user)
+             else {
                 print("Could not download photo for \(user)")
                 return
         }
+        photoCollection = photos
         
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,24 +47,37 @@ class FlickrCollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        return self.photoCollection.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! CollectionViewCell
     
         // Configure the cell
-    
+        let picture = photoCollection[indexPath.row]
+        let photoURLString = urlString(picture, format: .Small)
+        let url = NSURL(string: photoURLString!)
+        let photoData = NSData(contentsOfURL: url!)
+        if let image = UIImage(data: photoData!) {
+            cell.imageCell.image = image
+        }
         return cell
     }
+    
+    // MARK: - Methods
+    
+    /**
+     This function allows control back to the user, while downloading the photos on the background.
+     
+     parameters: (_:Photo)
+     - returns: - Void
+     
+     
+     */
+
 
     // MARK: UICollectionViewDelegate
 
