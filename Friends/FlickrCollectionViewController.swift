@@ -14,7 +14,19 @@ class FlickrCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let user = "strictfunctor"
+        guard let photos = photosForUser(user),
+            let photo = photos.first,
+            let photoURLString = urlString(photo),
+            let url = NSURL(string: photoURLString),
+            let photoData = NSData(contentsOfURL: url),
+            let image = UIImage(data: photoData) else {
+                print("Could not download photo for \(user)")
+                return
+        }
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

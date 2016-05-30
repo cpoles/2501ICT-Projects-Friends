@@ -22,15 +22,33 @@ class FlickrAPITests: XCTestCase {
     }
     
     func testLatestPhotos() {
-        
-        
-        
-        
-        
-        
+        let latestPhotos = latestFlickrPhotos()
+        XCTAssertNotNil(latestPhotos)
+        XCTAssertEqual(latestPhotos?.count, FlickrDefaultMaximumResults)
     }
     
+    func testPhotos() {
+        let photos = photosForUser("strictfunctor")
+        XCTAssertNotNil(photos)
+        XCTAssert(photos!.count > 0 )
+    }
     
+    func testPhotoImage() {
+        let photos = photosForUser("strictfunctor")
+        XCTAssertNotNil(photos)
+        XCTAssert(photos!.count > 0 )
+        let photo = photos?.first!
+        let photoURLString = urlString(photo!)
+        XCTAssertNotNil(photoURLString)
+        let url = NSURL(string: photoURLString!)
+        XCTAssertNotNil(url)
+        let photoData = NSData(contentsOfURL: url!)
+        XCTAssertNotNil(photoData)
+        let image = UIImage(data: photoData!)
+        XCTAssertNotNil(image)
+        
+    }
+
     
     
     func testExample() {

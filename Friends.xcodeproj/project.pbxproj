@@ -121,20 +121,20 @@
 		7724A86A1CEAA5D400722F0B /* Friends */ = {
 			isa = PBXGroup;
 			children = (
-				774625151CFC11FA00F11A56 /* FlickrAPI.swift */,
 				7724A86B1CEAA5D400722F0B /* AppDelegate.swift */,
 				7724A86D1CEAA5D400722F0B /* MasterViewController.swift */,
 				7724A86F1CEAA5D400722F0B /* DetailViewController.swift */,
 				7746250F1CFAF0AD00F11A56 /* MapViewController.swift */,
 				774625111CFB308E00F11A56 /* WebViewController.swift */,
+				774625131CFC0EF000F11A56 /* FlickrCollectionViewController.swift */,
 				7724A8711CEAA5D400722F0B /* Main.storyboard */,
 				7724A8741CEAA5D400722F0B /* Assets.xcassets */,
 				7724A8761CEAA5D400722F0B /* LaunchScreen.storyboard */,
 				7724A8791CEAA5D400722F0B /* Info.plist */,
+				774625151CFC11FA00F11A56 /* FlickrAPI.swift */,
 				7724A89D1CEAA7F800722F0B /* Contact.swift */,
 				7724A89F1CEAA85000722F0B /* SocialMediaAccount.swift */,
 				77196FDE1CEE983B00F534BD /* MasterTableViewCell.swift */,
-				774625131CFC0EF000F11A56 /* FlickrCollectionViewController.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";

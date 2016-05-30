@@ -104,7 +104,7 @@ class ContactTests: XCTestCase {
 
     func testSocialMedia() {
         let contact = Contact(firstName: "Carlos", lastName: "Poles", address: "Brazil")
-        let socialMediaToTest = [SocialMediaAccount(identifier: "email", type: .Facebook), SocialMediaAccount(identifier: "token", type: .Twitter)]
+        let socialMediaToTest = [SocialMediaAccount(identifier: "email", type: "Facebook"), SocialMediaAccount(identifier: "token", type: "Twitter")]
         
         XCTAssertNotNil(socialMediaToTest)
         contact.socialMedia = socialMediaToTest
@@ -119,7 +119,7 @@ class ContactTests: XCTestCase {
         let lastNames = ["Poles", "Brown", "Wilson", "White"]
         let addresses = ["Brazil", "Italy", "Germany", "Australia"]
         let imageURLs = ["http://stuffpoint.com/cartoons/image/95692-cartoons-cartoon.jpg", "http://stuffpoint.com/cartoons/image/187936-cartoons-pluto.jpg", "http://stuffpoint.com/cartoons/image/174883-cartoons-cartoons.jpg", "http://stuffpoint.com/cats/image/41633-cats-cute-cat.jpg" ]
-        let socialMedias = [[SocialMediaAccount(identifier: "email", type: .Facebook), SocialMediaAccount(identifier: "token", type: .Twitter)], [SocialMediaAccount(identifier: "webaddress", type: .WebPage)], [SocialMediaAccount(identifier: "token", type: .Flickr)], [SocialMediaAccount(identifier: "email", type: .Facebook), SocialMediaAccount(identifier: "token", type: .Twitter)] ]
+        let socialMedias = [[SocialMediaAccount(identifier: "email", type: "Facebook"), SocialMediaAccount(identifier: "token", type: "Twitter")], [SocialMediaAccount(identifier: "webaddress", type: "WebPage")], [SocialMediaAccount(identifier: "token", type: "Flickr")], [SocialMediaAccount(identifier: "email", type: "Facebook"), SocialMediaAccount(identifier: "token", type: "Twitter")] ]
         
         let contact = Contact(firstName: "", lastName: "", address: "")
         
