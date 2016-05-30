@@ -18,6 +18,15 @@ protocol FullPhotoViewControllerDelegate {
 }
 
 class FullPhotoViewController: UIViewController {
+    
+    
+    @IBOutlet weak var imageFullPhoto: UIImageView!
+    
+    // MARK - Properties
+    
+    var delegate: FullPhotoViewControllerDelegate?
+    
+    var photo: FlickrPhoto?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,15 +39,55 @@ class FullPhotoViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    /**
+     The configureView() function retrieves the detailItem sent by the sourceViewController, casts it down to a Photo object, checks for the imageData and sets the image property of the UIImageView to display the corresponding photo.
+     
+     */
+    
+    func configureView() {
+        if let photoItem = self.photo {
+            
+            let photoURLString = urlString(photoItem, format: .Small)
+            if let url = NSURL(string: photoURLString!) {
+                if let photoData = NSData(contentsOfURL: url) {
+                    if let image = UIImage(data: photoData) {
+                        imageFullPhoto.image = image
+                    }
+                }
+            }
+            print("Photo is not nil")
+        } else {
+            print("photo is nil")
+        }
     }
-    */
+    
+    
+    // MARK: - Actions
+    
+    /**
+     swipeRight action calls the delegate to execute the move to the previous item of the photoCollection
+     - parameters:
+     - (sender: UISwipeGestureRecognizer)
+     
+     */
 
+    @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
+         delegate?.previousItemFor(self)
+        
+    }
+    
+    /**
+     swipeLeft action calls the delegate to execute the move to the next item of the photoCollection
+     - parameters:
+     - (sender: UISwipeGestureRecognizer)
+     
+     */
+    
+    @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
+        delegate?.nextItemFor(self)
+
+        
+    }
+    
+    
 }

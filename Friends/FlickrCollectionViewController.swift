@@ -9,25 +9,15 @@
 import UIKit
 
 
-class FlickrCollectionViewController: UICollectionViewController {
+class FlickrCollectionViewController: UICollectionViewController, FullPhotoViewControllerDelegate {
     
 
-
-    
     var photoCollection = [FlickrPhoto]()
+    var currentIndexPath = NSIndexPath()
 
     override func viewDidLoad() {
-        FlickrAPIKey = "dc7f9d5d95a8e7dc3209a35d0fa24e20"
         super.viewDidLoad()
-        
-        let user = "strictfunctor"
-        guard let photos = photosForUser(user)
-             else {
-                print("Could not download photo for \(user)")
-                return
-        }
-        photoCollection = photos
-        
+        loadPhotoInBackground()
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,16 +25,21 @@ class FlickrCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    /*
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "showFullPhoto" {
+            let destinationViewController = segue.destinationViewController as! FullPhotoViewController
+            let indexPaths = self.collectionView?.indexPathsForSelectedItems()
+            let indexPath = indexPaths![0] as NSIndexPath
+            currentIndexPath = indexPath
+            destinationViewController.photo  = photoCollection[indexPath.row]
+            destinationViewController.delegate = self
+            print("Show Detail")
+        }
     }
-    */
-
+ 
     // MARK: UICollectionViewDataSource
 
 
@@ -77,37 +72,52 @@ class FlickrCollectionViewController: UICollectionViewController {
      
      
      */
-
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
     
+    func loadPhotoInBackground() {
+        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0)
+        
+        // closure to be run in the background on the secondary queue
+        let backgroundDownload = {
+                FlickrAPIKey = "dc7f9d5d95a8e7dc3209a35d0fa24e20"
+                let user = "strictfunctor"
+                guard let photos = photosForUser(user)
+                    else {
+                        print("Could not download photo for \(user)")
+                        return
+                    }
+                let mainQueue = dispatch_get_main_queue()
+                // dispatch items assincronously.
+                dispatch_async(mainQueue) {
+                     self.photoCollection = photos
+                    self.collectionView?.reloadData()
+                }
+            }
+            dispatch_async(queue, backgroundDownload)
     }
-    */
+
+
+    // MARK: - FullPhotoViewControllerDelegate
+    
+    func nextItemFor(viewController: FullPhotoViewController) {
+        
+        let row = currentIndexPath.row
+        let nextRow: Int
+        if row == photoCollection.count - 1 { nextRow = 0 }
+        else { nextRow = row + 1 }
+        let indexPath = NSIndexPath(forRow: nextRow, inSection: currentIndexPath.section)
+        currentIndexPath = indexPath
+        viewController.photo = photoCollection[nextRow]
+        
+    }
+    
+    func previousItemFor(viewController: FullPhotoViewController) {
+        let row = currentIndexPath.row
+        let previousRow: Int
+        if row == 0 { previousRow = photoCollection.count - 1 }
+        else { previousRow = row - 1 }
+        let indexPath = NSIndexPath(forRow: previousRow, inSection: currentIndexPath.section)
+        currentIndexPath = indexPath
+        viewController.photo = photoCollection[previousRow]
+    }
 
 }

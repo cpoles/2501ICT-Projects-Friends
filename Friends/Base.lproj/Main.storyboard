@@ -341,6 +341,7 @@
                                 </view>
                                 <connections>
                                     <outlet property="imageCell" destination="FZW-Q3-TKN" id="Z9d-9E-5WN"/>
+                                    <segue destination="uba-nj-ZTV" kind="show" id="UOL-PD-qg3"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -354,6 +355,50 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="chv-PJ-hrl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1466" y="795"/>
+        </scene>
+        <!--Full Photo View Controller-->
+        <scene sceneID="8Nv-G8-AZ1">
+            <objects>
+                <viewController id="uba-nj-ZTV" customClass="FullPhotoViewController" customModule="Friends" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0b6-Gj-Qcq"/>
+                        <viewControllerLayoutGuide type="bottom" id="TcN-Je-KrP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6e3-kK-oAn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RLF-YP-X5D">
+                                <rect key="frame" x="20" y="184" width="560" height="234"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TcN-Je-KrP" firstAttribute="top" secondItem="RLF-YP-X5D" secondAttribute="bottom" constant="182" id="AZR-6n-PT8"/>
+                            <constraint firstItem="RLF-YP-X5D" firstAttribute="leading" secondItem="6e3-kK-oAn" secondAttribute="leadingMargin" id="ZZ4-UQ-IcX"/>
+                            <constraint firstItem="RLF-YP-X5D" firstAttribute="top" secondItem="0b6-Gj-Qcq" secondAttribute="bottom" constant="120" id="raQ-V5-k0o"/>
+                            <constraint firstItem="RLF-YP-X5D" firstAttribute="trailing" secondItem="6e3-kK-oAn" secondAttribute="trailingMargin" id="wgQ-ml-bMH"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="7uR-gF-thq"/>
+                    <connections>
+                        <outlet property="imageFullPhoto" destination="RLF-YP-X5D" id="vGw-qc-8mu"/>
+                        <outlet property="swipeLeft" destination="e0L-Rd-dYK" id="9NL-HO-8oh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hS6-Nf-BW4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="Dzz-SQ-k4a">
+                    <connections>
+                        <action selector="swipeRight:" destination="uba-nj-ZTV" id="cbH-9k-28Q"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="e0L-Rd-dYK">
+                    <connections>
+                        <action selector="swipeLeft:" destination="uba-nj-ZTV" id="myU-Yb-769"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="2154" y="795"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
@@ -505,11 +550,30 @@
             </objects>
             <point key="canvasLocation" x="730" y="1487"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="HRW-ek-TR9">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gNE-Y5-jh0" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lbG-am-1Mv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="uba-nj-ZTV" kind="relationship" relationship="rootViewController" id="ohE-eW-n3Z"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bmk-Ij-LRV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2093" y="1450"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="NR5-rz-z1t"/>
-        <segue reference="cTE-oF-SlG"/>
         <segue reference="Mkw-yN-RvE"/>
+        <segue reference="cTE-oF-SlG"/>
         <segue reference="Wpg-SC-bpo"/>
+        <segue reference="UOL-PD-qg3"/>
     </inferredMetricsTieBreakers>
 </document>
