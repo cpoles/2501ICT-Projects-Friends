@@ -30,8 +30,7 @@ class FullPhotoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.configureView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,6 +53,7 @@ class FullPhotoViewController: UIViewController {
                         imageFullPhoto.image = image
                     }
                 }
+                self.title = photoItem.title
             }
             print("Photo is not nil")
         } else {
@@ -72,9 +72,9 @@ class FullPhotoViewController: UIViewController {
      */
 
     @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
-         delegate?.previousItemFor(self)
-        
+        delegate?.previousItemFor(self)
     }
+   
     
     /**
      swipeLeft action calls the delegate to execute the move to the next item of the photoCollection
@@ -82,12 +82,11 @@ class FullPhotoViewController: UIViewController {
      - (sender: UISwipeGestureRecognizer)
      
      */
-    
+  
     @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
         delegate?.nextItemFor(self)
-
-        
     }
+    
     
     
 }

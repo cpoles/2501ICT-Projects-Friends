@@ -18,6 +18,7 @@ class FlickrCollectionViewController: UICollectionViewController, FullPhotoViewC
     override func viewDidLoad() {
         super.viewDidLoad()
         loadPhotoInBackground()
+        
     }
 
     override func didReceiveMemoryWarning() {
