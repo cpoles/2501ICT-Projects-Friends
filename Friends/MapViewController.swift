@@ -61,7 +61,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFiel
             print("Found \(location) as the first for \(self.locationString)")
             let locationRegion = MKCoordinateRegion(center: brisbane, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
             self.mapView.setRegion(locationRegion, animated: true)
-        } as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler
+        } as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler 
         
     }
 
