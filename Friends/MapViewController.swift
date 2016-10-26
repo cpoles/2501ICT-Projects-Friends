@@ -34,11 +34,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFiel
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
        searchLocation()
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         txtAddress.resignFirstResponder()
         searchLocation()
         return true
@@ -50,7 +50,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFiel
         let brisbane = CLLocationCoordinate2D(latitude: -27, longitude: 153)
         
         let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(locationString!, inRegion: CLCircularRegion(center: brisbane, radius: 100000, identifier: "Brisbane")) { (placemarks:[CLPlacemark]?, error: NSError?) in
+        geocoder.geocodeAddressString(locationString!, in: CLCircularRegion(center: brisbane, radius: 100000, identifier: "Brisbane")) { (placemarks:[CLPlacemark]?, error: NSError?) in
             if let e = error {
                 print(e.localizedDescription)
             }
@@ -61,33 +61,33 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFiel
             print("Found \(location) as the first for \(self.locationString)")
             let locationRegion = MKCoordinateRegion(center: brisbane, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
             self.mapView.setRegion(locationRegion, animated: true)
-        }
+        } as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler
         
     }
 
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         let allowed: Bool
         switch status {
         // User has not yet made a choice with regards to this application
-        case .NotDetermined:
+        case .notDetermined:
             allowed = false
             print("Not determined yet")
             // This application is not authorized to use location services.  Due
             // to active restrictions on location services, the user cannot change
         // this status, and may not have personally denied authorization
-        case .Restricted:
+        case .restricted:
             allowed = false
             print("user denied using locator")
             // User has explicitly denied authorization for this application, or
         // location services are disabled in Settings.
-        case .Denied:
+        case .denied:
             allowed = false
             print("User denied using location")
             
             // User has granted authorization to use their location at any time,
         // including monitoring for regions, visits, or significant location changes.
-        case .AuthorizedAlways:
+        case .authorizedAlways:
             allowed = true
             print("Even works in background")
             
@@ -96,7 +96,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UITextFiel
             // receive location updates while in the background).  Authorization to use
             // launch APIs has not been granted.
             
-        case .AuthorizedWhenInUse:
+        case .authorizedWhenInUse:
             allowed = true
             print("User authorized using location when in use")
             

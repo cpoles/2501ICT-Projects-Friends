@@ -37,8 +37,8 @@ class SocialMediaAccount : Equatable, PropertyListable {
     }
     
     convenience init(propertyList: NSDictionary) {
-        let identifier = (propertyList.objectForKey("identifier") as! String)
-        let type = (propertyList.objectForKey("type") as! String)
+        let identifier = (propertyList.object(forKey: "identifier") as! String)
+        let type = (propertyList.object(forKey: "type") as! String)
         self.init(identifier: identifier, type: type)
         
     }

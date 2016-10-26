@@ -15,7 +15,7 @@ import MapKit
  */
 
 protocol DetailViewControllerDelegate {
-    func destinationViewControllerControllerContentChanged(dvc: DetailViewController)
+    func destinationViewControllerControllerContentChanged(_ dvc: DetailViewController)
 }
 
 class DetailViewController: UITableViewController, UITextFieldDelegate {
@@ -52,7 +52,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
     
     var delegate: DetailViewControllerDelegate?
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
 //      let nc = NSNotificationCenter.defaultCenter()
 //        nc.addObserver(self, selector: #selector(DetailViewController.aboutToResign), name: Resign, object: nil)
 //        
@@ -84,7 +84,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         contact?.firstName = txtFirstName.text!
         contact?.lastName = txtLastName.text!
         contact?.address = txtAddress.text!
@@ -96,12 +96,12 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
 
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showMap" {
-            let controller = segue.destinationViewController as! MapViewController
+            let controller = segue.destination as! MapViewController
             controller.locationString = txtAddress.text
         } else if segue.identifier == "showWebPage" {
-            let controller = segue.destinationViewController as! WebViewController
+            let controller = segue.destination as! WebViewController
             controller.webAddress = textWebPage.text
         }
     }
@@ -121,7 +121,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
                 webPage.text = contact!.socialMedia[1].identifier
                 if let imageURL = contact!.imageURL {
                     imageURLText.text = imageURL
-                    imageContactPhoto.image = UIImage(data: contact!.image!)
+                    imageContactPhoto.image = UIImage(data: contact!.image! as Data)
                 }
                 
             }
@@ -130,7 +130,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - UITextFieldDelegate
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Hide the keyboard.
         
         textWebPage.resignFirstResponder()

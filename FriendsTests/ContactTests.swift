@@ -28,7 +28,7 @@ class ContactTests: XCTestCase {
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock {
+        self.measure {
             // Put the code you want to measure the time of here.
         }
     }
@@ -177,7 +177,7 @@ class ContactTests: XCTestCase {
         
         let contactListAsDic = contactList.map { $0.propertyListRepresentation() }
         
-        XCTAssertTrue(NSJSONSerialization.isValidJSONObject(contactListAsDic))
+        XCTAssertTrue(JSONSerialization.isValidJSONObject(contactListAsDic))
         
     }
     
@@ -204,7 +204,7 @@ class ContactTests: XCTestCase {
         
         // create path from Directory for the class for the converted class into a property list to be saved.
         
-        let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as NSString
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
         
         // convert ContactList into NSDictionary format
         
@@ -212,17 +212,17 @@ class ContactTests: XCTestCase {
         
         // create NSData Object to write data to file
         
-        let data: NSData
+        let data: Data
         
-        try! data = NSJSONSerialization.dataWithJSONObject(contactListAsDic, options: .PrettyPrinted)
+        try! data = JSONSerialization.data(withJSONObject: contactListAsDic, options: .prettyPrinted)
         
         // create jSON file
         
-        let jsonFile = path.stringByAppendingPathComponent("friendTest.json")
+        let jsonFile = path.appendingPathComponent("friendTest.json")
         
         // write data to file
         
-        XCTAssertTrue(data.writeToFile(jsonFile, atomically: true))
+        XCTAssertTrue((try? data.write(to: URL(fileURLWithPath: jsonFile), options: [.atomic])) != nil)
         
         
     }
@@ -242,7 +242,7 @@ class ContactTests: XCTestCase {
         
         // create path from Directory for the class for the converted class into a property list to be saved.
         
-        let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as NSString
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
         
         // convert ContactList into NSDictionary format
         
@@ -250,30 +250,30 @@ class ContactTests: XCTestCase {
         
         // create NSData Object to write data to file
         
-        let data: NSData
+        let data: Data
         
-        try! data = NSJSONSerialization.dataWithJSONObject(contactListAsDic, options: .PrettyPrinted)
+        try! data = JSONSerialization.data(withJSONObject: contactListAsDic, options: .prettyPrinted)
         
         // create jSON file
         
-        let jsonFile = path.stringByAppendingPathComponent("friendTest.json")
+        let jsonFile = path.appendingPathComponent("friendTest.json")
         
         // write data to file
     
-        data.writeToFile(jsonFile, atomically: true)
+        try? data.write(to: URL(fileURLWithPath: jsonFile), options: [.atomic])
         
         
         //build the ContacList from the jSON file
         
         // create NSData object
         
-        let jsonData = NSData(contentsOfFile: jsonFile)
+        let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonFile))
         
         // create the array of dictionaries from the jsonData object
         
         let jsonArrayDic: [NSDictionary]
         
-        try! jsonArrayDic = NSJSONSerialization.JSONObjectWithData(jsonData!, options: []) as! [NSDictionary]
+        try! jsonArrayDic = JSONSerialization.jsonObject(with: jsonData!, options: []) as! [NSDictionary]
         
         // create the array of Contact objects parsing a trailing closure to the map function of the jsonArrayDic
         // The closure will build a Contact object for each dictionary inside the jsonArrayDic

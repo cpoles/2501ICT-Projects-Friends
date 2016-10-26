@@ -13,8 +13,8 @@ import UIKit
  */
 
 protocol FullPhotoViewControllerDelegate {
-    func nextItemFor(viewController: FullPhotoViewController)
-    func previousItemFor(viewController: FullPhotoViewController)
+    func nextItemFor(_ viewController: FullPhotoViewController)
+    func previousItemFor(_ viewController: FullPhotoViewController)
 }
 
 class FullPhotoViewController: UIViewController {
@@ -47,8 +47,8 @@ class FullPhotoViewController: UIViewController {
         if let photoItem = self.photo {
             
             let photoURLString = urlString(photoItem, format: .Small)
-            if let url = NSURL(string: photoURLString!) {
-                if let photoData = NSData(contentsOfURL: url) {
+            if let url = URL(string: photoURLString!) {
+                if let photoData = try? Data(contentsOf: url) {
                     if let image = UIImage(data: photoData) {
                         imageFullPhoto.image = image
                     }
@@ -71,7 +71,7 @@ class FullPhotoViewController: UIViewController {
      
      */
 
-    @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
+    @IBAction func swipeRight(_ sender: UISwipeGestureRecognizer) {
         delegate?.previousItemFor(self)
     }
    
@@ -83,7 +83,7 @@ class FullPhotoViewController: UIViewController {
      
      */
   
-    @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
+    @IBAction func swipeLeft(_ sender: UISwipeGestureRecognizer) {
         delegate?.nextItemFor(self)
     }
     

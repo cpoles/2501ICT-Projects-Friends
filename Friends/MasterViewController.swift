@@ -16,7 +16,7 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        self.navigationItem.leftBarButtonItem = self.editButtonItem
 
         // Load contact list
         
@@ -24,8 +24,8 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
 
     }
 
-    override func viewWillAppear(animated: Bool) {
-        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+    override func viewWillAppear(_ animated: Bool) {
+        self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
         super.viewWillAppear(animated)
     }
 
@@ -37,49 +37,49 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
    
     // MARK: - Table View
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contactList.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! MasterTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! MasterTableViewCell
 
-        let contact = contactList[indexPath.row]
+        let contact = contactList[(indexPath as NSIndexPath).row]
         cell.labelFullName.text = contact.fullName
-        cell.imageContact.image = UIImage(data: contact.image!)
+        cell.imageContact.image = UIImage(data: contact.image! as Data)
         return cell
     }
 
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
 
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            contactList.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            contactList.remove(at: (indexPath as NSIndexPath).row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
             print("contact deleted.")
             saveContactList()
-        } else if editingStyle == .Insert {
+        } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
 
     // MARK: - Segues
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let contact = contactList[indexPath.row]
-                let controller = segue.destinationViewController as!  DetailViewController
+                let contact = contactList[(indexPath as NSIndexPath).row]
+                let controller = segue.destination as!  DetailViewController
                 controller.detailItem = contact
                 controller.delegate = self
-                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
         } else if segue.identifier == "addNew" {
@@ -89,7 +89,7 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
             contact.socialMedia.append(socialMedia1)
             contact.socialMedia.append(socialMedia2)
             contactList.append(contact)
-            let controller = segue.destinationViewController as! DetailViewController
+            let controller = segue.destination as! DetailViewController
             controller.detailItem = contact
             controller.delegate = self
             print("Add new contact")
@@ -102,7 +102,7 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
         
         // create path from Directory for the class for the converted class into a property list to be saved.
         
-        let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as NSString
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
         
         // convert contact list array into property list format
         
@@ -110,16 +110,16 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
         
         // created NSData object to write data to file
         
-        let data: NSData
-        try! data = NSJSONSerialization.dataWithJSONObject(contactListConverted, options: .PrettyPrinted)
+        let data: Data
+        try! data = JSONSerialization.data(withJSONObject: contactListConverted, options: .prettyPrinted)
         
         // create the json file
         
-        let jsonFile = path.stringByAppendingPathComponent("friends2016.json")
+        let jsonFile = path.appendingPathComponent("friends2016.json")
         
         //write data to file
         
-        data.writeToFile(jsonFile, atomically: true)
+        try? data.write(to: URL(fileURLWithPath: jsonFile), options: [.atomic])
         
         print("contact list saved")
         
@@ -131,23 +131,23 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
         
         //build the contac list from the jsonFile
         
-        let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as NSString
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as NSString
         
         // look for the file and save its path in a string
         
-        let jsonFile = path.stringByAppendingPathComponent("friends2016.json") as String?
+        let jsonFile = path.appendingPathComponent("friends2016.json") as String?
         
         if let file = jsonFile {
             
             // create NSData object
-            let jsonData = NSData(contentsOfFile: file)
+            let jsonData = try? Data(contentsOf: URL(fileURLWithPath: file))
             
             // create the array of dictionaries out of the jsonData NSData object
             
             let jsonArrayDic: [NSDictionary]
             
             if let data = jsonData {
-                try! jsonArrayDic = NSJSONSerialization.JSONObjectWithData(data, options: []) as! [NSDictionary]
+                try! jsonArrayDic = JSONSerialization.jsonObject(with: data, options: []) as! [NSDictionary]
                 
                 // create the array of contact objects parsing a trailing closure to the map function of the jsonArrayDic
                 // The closure will build a Contact object for each dictionary inside the jsonArrayDic
@@ -174,13 +174,13 @@ class MasterViewController: UITableViewController, DetailViewControllerDelegate 
      
      */
     
-    func destinationViewControllerControllerContentChanged(dvc: DetailViewController) {
+    func destinationViewControllerControllerContentChanged(_ dvc: DetailViewController) {
         
         if let contact = dvc.detailItem {
             print("Got \(contact)")
             // save the friends list and write to the json file
             
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
         }
         saveContactList()
         self.tableView.reloadData()

@@ -25,11 +25,11 @@ class WebViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         let validation = validateURLByString(txtWebAddress.text)
         if validation {
-            let url = NSURL(string: txtWebAddress.text!)
-            let request = NSURLRequest(URL: url!)
+            let url = URL(string: txtWebAddress.text!)
+            let request = URLRequest(url: url!)
             
             // load the page in the webView
             webView.loadRequest(request)
@@ -44,24 +44,24 @@ class WebViewController: UIViewController, UITextFieldDelegate {
     // MARK - Delegation
     // UITextFieldDelegate
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if !checkEmptynessFor(txtWebAddress) {
             // if not empty, check the string for a valid URL
             let validation = validateURLByString(txtWebAddress.text)
             if validation {
-                let url = NSURL(string: txtWebAddress.text!)
-                let request = NSURLRequest(URL: url!)
+                let url = URL(string: txtWebAddress.text!)
+                let request = URLRequest(url: url!)
                 
                 // load the page in the webView
                 webView.loadRequest(request)
             } else {
                 // display an alert asking for a valid URL.
                 
-                let alert = UIAlertController.init(title: "Invalid URL", message: "Enter a valid URL.", preferredStyle: .Alert)
-                let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                let alert = UIAlertController.init(title: "Invalid URL", message: "Enter a valid URL.", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alert.addAction(action)
-                presentViewController(alert, animated: true, completion: nil)
+                present(alert, animated: true, completion: nil)
             }
         }
         
@@ -78,14 +78,14 @@ class WebViewController: UIViewController, UITextFieldDelegate {
      - (textField UITextField)
      - returns: Bool
      */
-    func checkEmptynessFor(textField: UITextField) -> Bool {
+    func checkEmptynessFor(_ textField: UITextField) -> Bool {
         
         if let text = textField.text {
             if text.isEmpty {
-                let alert = UIAlertController.init(title: "URL Field Empty", message: "Please Enter a URL.", preferredStyle: .Alert)
-                let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                let alert = UIAlertController.init(title: "URL Field Empty", message: "Please Enter a URL.", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alert.addAction(action)
-                presentViewController(alert, animated: true, completion: nil)
+                present(alert, animated: true, completion: nil)
                 return true
             }
         }
@@ -99,11 +99,11 @@ class WebViewController: UIViewController, UITextFieldDelegate {
      - returns: Bool
      */
     
-    func validateURLByString(string: String?) -> Bool {
+    func validateURLByString(_ string: String?) -> Bool {
         
         if let urlString = string {
-            if let url = NSURL(string: urlString) {
-                return UIApplication.sharedApplication().canOpenURL(url)
+            if let url = URL(string: urlString) {
+                return UIApplication.shared.canOpenURL(url)
             }
         }
         return false

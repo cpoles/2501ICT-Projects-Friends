@@ -13,7 +13,7 @@ class FlickrCollectionViewController: UICollectionViewController, FullPhotoViewC
     
 
     var photoCollection = [FlickrPhoto]()
-    var currentIndexPath = NSIndexPath()
+    var currentIndexPath = IndexPath()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +29,13 @@ class FlickrCollectionViewController: UICollectionViewController, FullPhotoViewC
     
     // MARK: - Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showFullPhoto" {
-            let destinationViewController = segue.destinationViewController as! FullPhotoViewController
-            let indexPaths = self.collectionView?.indexPathsForSelectedItems()
-            let indexPath = indexPaths![0] as NSIndexPath
+            let destinationViewController = segue.destination as! FullPhotoViewController
+            let indexPaths = self.collectionView?.indexPathsForSelectedItems
+            let indexPath = indexPaths![0] as IndexPath
             currentIndexPath = indexPath
-            destinationViewController.photo  = photoCollection[indexPath.row]
+            destinationViewController.photo  = photoCollection[(indexPath as NSIndexPath).row]
             destinationViewController.delegate = self
             print("Show Detail")
         }
@@ -44,19 +44,19 @@ class FlickrCollectionViewController: UICollectionViewController, FullPhotoViewC
     // MARK: UICollectionViewDataSource
 
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         return self.photoCollection.count
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! CollectionViewCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
     
         // Configure the cell
-        let picture = photoCollection[indexPath.row]
+        let picture = photoCollection[(indexPath as NSIndexPath).row]
         let photoURLString = urlString(picture, format: .Small)
-        let url = NSURL(string: photoURLString!)
-        let photoData = NSData(contentsOfURL: url!)
+        let url = URL(string: photoURLString!)
+        let photoData = try? Data(contentsOf: url!)
         if let image = UIImage(data: photoData!) {
             cell.imageCell.image = image
         }
@@ -75,7 +75,7 @@ class FlickrCollectionViewController: UICollectionViewController, FullPhotoViewC
      */
     
     func loadPhotoInBackground() {
-        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0)
+        let queue = DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.low)
         
         // closure to be run in the background on the secondary queue
         let backgroundDownload = {
@@ -86,37 +86,37 @@ class FlickrCollectionViewController: UICollectionViewController, FullPhotoViewC
                         print("Could not download photo for \(user)")
                         return
                     }
-                let mainQueue = dispatch_get_main_queue()
+                let mainQueue = DispatchQueue.main
                 // dispatch items assincronously.
-                dispatch_async(mainQueue) {
+                mainQueue.async {
                      self.photoCollection = photos
                     self.collectionView?.reloadData()
                 }
             }
-            dispatch_async(queue, backgroundDownload)
+            queue.async(execute: backgroundDownload)
     }
 
 
     // MARK: - FullPhotoViewControllerDelegate
     
-    func nextItemFor(viewController: FullPhotoViewController) {
+    func nextItemFor(_ viewController: FullPhotoViewController) {
         
-        let row = currentIndexPath.row
+        let row = (currentIndexPath as NSIndexPath).row
         let nextRow: Int
         if row == photoCollection.count - 1 { nextRow = 0 }
         else { nextRow = row + 1 }
-        let indexPath = NSIndexPath(forRow: nextRow, inSection: currentIndexPath.section)
+        let indexPath = IndexPath(row: nextRow, section: (currentIndexPath as NSIndexPath).section)
         currentIndexPath = indexPath
         viewController.photo = photoCollection[nextRow]
         
     }
     
-    func previousItemFor(viewController: FullPhotoViewController) {
-        let row = currentIndexPath.row
+    func previousItemFor(_ viewController: FullPhotoViewController) {
+        let row = (currentIndexPath as NSIndexPath).row
         let previousRow: Int
         if row == 0 { previousRow = photoCollection.count - 1 }
         else { previousRow = row - 1 }
-        let indexPath = NSIndexPath(forRow: previousRow, inSection: currentIndexPath.section)
+        let indexPath = IndexPath(row: previousRow, section: (currentIndexPath as NSIndexPath).section)
         currentIndexPath = indexPath
         viewController.photo = photoCollection[previousRow]
     }

@@ -31,10 +31,10 @@ class Contact : NSObject {
    dynamic var imageURL: String?
    dynamic var lastName: String
     
-   dynamic var image: NSData? {
+   dynamic var image: Data? {
         
         if let imageAddress = imageURL {
-            return NSData(contentsOfURL: NSURL(string: imageAddress)!)!
+            return (try! Data(contentsOf: URL(string: imageAddress)!))
         } else {
             return nil
         }
@@ -115,11 +115,11 @@ extension Contact : PropertyListable {
     // MARK - Initialisation
     
     convenience init(propertyList: NSDictionary) {
-        let firstName = (propertyList.objectForKey(PropertyKey.firstNameKey) as! String)
-        let lastName = (propertyList.objectForKey(PropertyKey.lastNameKey) as! String)
-        let address = (propertyList.objectForKey(PropertyKey.addressKey) as! String)
-        let imageURL = (propertyList.objectForKey(PropertyKey.imageURLKey) as! String?)
-        let socialMedia = (propertyList.objectForKey(PropertyKey.socialMediaKey) as! [NSDictionary])
+        let firstName = (propertyList.object(forKey: PropertyKey.firstNameKey) as! String)
+        let lastName = (propertyList.object(forKey: PropertyKey.lastNameKey) as! String)
+        let address = (propertyList.object(forKey: PropertyKey.addressKey) as! String)
+        let imageURL = (propertyList.object(forKey: PropertyKey.imageURLKey) as! String?)
+        let socialMedia = (propertyList.object(forKey: PropertyKey.socialMediaKey) as! [NSDictionary])
         let socialArray = socialMedia.map { SocialMediaAccount(propertyList: $0) }
         self.init(firstName: firstName, lastName: lastName, address: address)
         if let url = imageURL {

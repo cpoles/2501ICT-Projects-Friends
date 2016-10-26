@@ -55,7 +55,7 @@ public struct FlickrPhoto {
 
 /// download a list of the latest photos on Flickr
 ///
-public func latestFlickrPhotos(maximumResults: Int = FlickrDefaultMaximumResults) -> Array<FlickrPhoto>? {
+public func latestFlickrPhotos(_ maximumResults: Int = FlickrDefaultMaximumResults) -> Array<FlickrPhoto>? {
     guard let response = fetch("https://api.flickr.com/services/rest/?method=flickr.photos.search&license=1,2,4,5,7&per_page=\(maximumResults)&has_geo=1&extras=original_format,tags,description,geo,date_upload,owner_name,place_url") else {
         return nil
     }
@@ -67,7 +67,7 @@ public func latestFlickrPhotos(maximumResults: Int = FlickrDefaultMaximumResults
 ///
 /// - parameter `user`: the flickr user name to download the photo list for
 /// - parameter `maximumResults`: the maximum number of results to return
-public func photosForUser(user: String, maximumResults: Int = FlickrDefaultMaximumResults) -> Array<FlickrPhoto>? {
+public func photosForUser(_ user: String, maximumResults: Int = FlickrDefaultMaximumResults) -> Array<FlickrPhoto>? {
     guard let nsid = idForUser(user) else { return nil }
     return photosForNSID(nsid, maximumResults: maximumResults)
 }
@@ -77,7 +77,7 @@ public func photosForUser(user: String, maximumResults: Int = FlickrDefaultMaxim
 ///
 /// - parameter `nsid`: the flickr user name to download the photo list for
 /// - parameter `maximumResults`: the maximum number of results to return
-public func photosForNSID(nsid: String, maximumResults: Int = FlickrDefaultMaximumResults) -> Array<FlickrPhoto>? {
+public func photosForNSID(_ nsid: String, maximumResults: Int = FlickrDefaultMaximumResults) -> Array<FlickrPhoto>? {
     guard let response = fetch("https://api.flickr.com/services/rest/?method=flickr.photos.search&per_page=\(maximumResults)&has_geo=1&user_id=\(nsid)&extras=original_format,tags,description,geo,date_upload,owner_name,place_url") else {
         return nil
     }
@@ -88,19 +88,19 @@ public func photosForNSID(nsid: String, maximumResults: Int = FlickrDefaultMaxim
 /// get the ID for a given user
 ///
 /// - parameter `user`: the flickr user name to get the ID for
-public func idForUser(user: String) -> String? {
+public func idForUser(_ user: String) -> String? {
     guard let response = fetch("https://api.flickr.com/services/rest/?method=flickr.people.findByUsername&username=\(user)") else {
         return nil
     }
-    return response.valueForKeyPath("user.nsid") as? String
+    return response.value(forKeyPath: "user.nsid") as? String
 }
 
 
 /// get photos out of a Flickr response
 ///
 /// - parameter `response`: JSON dictionary as a response for a photos REST request
-public func photosForFlickrJSONResponse(response: NSDictionary) -> Array<FlickrPhoto>? {
-    guard let photoArray = response.valueForKeyPath("photos.photo") as? Array<NSDictionary> else {
+public func photosForFlickrJSONResponse(_ response: NSDictionary) -> Array<FlickrPhoto>? {
+    guard let photoArray = response.value(forKeyPath: "photos.photo") as? Array<NSDictionary> else {
         return nil
     }
     return photoArray.reduce([FlickrPhoto]()) { array, dict in
@@ -113,13 +113,13 @@ public func photosForFlickrJSONResponse(response: NSDictionary) -> Array<FlickrP
 /// convert a photo JSON dictionary to a `FlickrPhoto`
 ///
 /// - parameter `json`: JSON dictionary to interpret as a JSON encoded Flickr photo
-public func photo(json: NSDictionary) -> FlickrPhoto? {
+public func photo(_ json: NSDictionary) -> FlickrPhoto? {
     guard let id = json["id"]     as? String,
-              sc = json["secret"] as? String,
-              ow = json["owner"]  as? String,
-              ti = json["title"]  as? String,
-              fa = json["farm"]   as? Int,
-              se = json["server"] as? String else { return nil }
+              let sc = json["secret"] as? String,
+              let ow = json["owner"]  as? String,
+              let ti = json["title"]  as? String,
+              let fa = json["farm"]   as? Int,
+              let se = json["server"] as? String else { return nil }
     return FlickrPhoto(id: id, secret: sc, owner: ow, title: ti, farm: fa, server: se, originalSecret: json["originalsecret"] as? String, originalFormat: json["originalformat"] as? String)
 }
 
@@ -128,9 +128,9 @@ public func photo(json: NSDictionary) -> FlickrPhoto? {
 ///
 /// - parameter `photo`:  flickr photo to the the access URL string for
 /// - parameter `format`: image format to download
-public func url(photo: FlickrPhoto, format: FlickrPhotoFormat = .Original) -> NSURL? {
+public func url(_ photo: FlickrPhoto, format: FlickrPhotoFormat = .Original) -> URL? {
     guard let s = urlString(photo, format: format) else { return nil }
-    return NSURL(string: s)
+    return URL(string: s)
 }
 
 
@@ -138,11 +138,11 @@ public func url(photo: FlickrPhoto, format: FlickrPhotoFormat = .Original) -> NS
 ///
 /// - parameter `photo`:  flickr photo to the the access URL string for
 /// - parameter `format`: image format to download
-public func urlString(photo: FlickrPhoto, format: FlickrPhotoFormat = .Original) -> String? {
+public func urlString(_ photo: FlickrPhoto, format: FlickrPhotoFormat = .Original) -> String? {
     let kind: String
     let secret: String
     if format == .Original {
-        guard let s = photo.originalFormat, f = photo.originalFormat else { return nil }
+        guard let s = photo.originalFormat, let f = photo.originalFormat else { return nil }
         secret = s
         kind = f
     } else {
@@ -159,11 +159,11 @@ public func urlString(photo: FlickrPhoto, format: FlickrPhotoFormat = .Original)
 /// use one of the public functions instead!
 ///
 /// - parameter `requestString`: string containing the REST request URL
-func fetch(requestString: String) -> NSDictionary? {
+func fetch(_ requestString: String) -> NSDictionary? {
     do {
-        guard let url = NSURL(string: "\(requestString)&api_key=\(FlickrAPIKey)&format=json&nojsoncallback=1"),
-                 data = NSData(contentsOfURL: url) else { return nil }
-        return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSDictionary
+        guard let url = URL(string: "\(requestString)&api_key=\(FlickrAPIKey)&format=json&nojsoncallback=1"),
+                 let data = try? Data(contentsOf: url) else { return nil }
+        return try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
     } catch {
         fputs("Error deserialising JSON Data: \(error) for request \(requestString)", stderr)
     }
